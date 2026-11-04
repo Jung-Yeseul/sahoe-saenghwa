@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="인싸 될래, 아싸 될래? 회사·연애·가족·정치 상황별 스몰톡 주제와 질문 리스트, 바이럴 영상, 리액션 치트키">
+<meta property="og:title" content="사회생활 하기">
+<meta property="og:description" content="버텨야지, 먹고살려면. 아싸를 위한 오늘의 스몰톡 생존 키트">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💬</text></svg>">
+<title>사회생활 하기</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: 사내 게시판 + 형광펜. 모드 스위치(회사/연애/가족) → 출입증 헤더 → 상황 탭 → 주제 카드 → 질문 리스트 → 영상 → 리액션 */
+:root{
+  --bg:#eef1f4; --paper:#ffffff; --ink:#1d2430; --muted:#5d6878; --line:#d5dbe3;
+  --hl:#fff36b; --hl-ink:#1d2430;
+  --a-work:#2f5bd3; --a-love:#d6336c; --a-family:#2b8a6e; --a-pol:#e01e1e;
+  --safe:#1f9d62; --warn:#c98a00; --ban:#d23c3c;
+  --safe-bg:#e3f5ec; --warn-bg:#fdf3d8; --ban-bg:#fbe5e5;
+  --display:"Black Han Sans","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --accent:var(--a-work);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141922; --paper:#1d2430; --ink:#e8ecf2; --muted:#9aa5b5; --line:#2e3846;
+  --hl:#e8d94a; --hl-ink:#141922;
+  --a-work:#7b9cff; --a-love:#ff7aa8; --a-family:#5cc9a7; --a-pol:#ff4d4d;
+  --safe:#4cc98d; --warn:#e6b23a; --ban:#f07070;
+  --safe-bg:#183428; --warn-bg:#352c14; --ban-bg:#3a1c1e; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141922; --paper:#1d2430; --ink:#e8ecf2; --muted:#9aa5b5; --line:#2e3846;
+  --hl:#e8d94a; --hl-ink:#141922;
+  --a-work:#7b9cff; --a-love:#ff7aa8; --a-family:#5cc9a7; --a-pol:#ff4d4d;
+  --safe:#4cc98d; --warn:#e6b23a; --ban:#f07070;
+  --safe-bg:#183428; --warn-bg:#352c14; --ban-bg:#3a1c1e; color-scheme:dark}
+body[data-mode="politics"]{--accent:var(--a-pol);--hl:var(--ban-bg)}
+body[data-mode="politics"] .card,body[data-mode="politics"] .q-pick{border-color:var(--a-pol)}
+body[data-mode="politics"] .script{border-left-color:var(--a-pol)}
+body[data-mode="politics"] .mark{background:linear-gradient(transparent 55%,var(--a-pol) 55%);color:var(--paper)}
+.mode[data-m="politics"] b{color:var(--a-pol)}
+.mode[data-m="politics"][aria-pressed="true"] b{color:inherit}
+body[data-mode="work"]{--accent:var(--a-work)}
+body[data-mode="love"]{--accent:var(--a-love)}
+body[data-mode="family"]{--accent:var(--a-family)}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 56px}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:36px}
+h1,h2{font-family:var(--display);font-weight:400;margin:0;text-wrap:balance;letter-spacing:-.01em}
+.mark{background:linear-gradient(transparent 55%,var(--hl) 55%);color:inherit;padding:0 .1em}
+.label{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* 모드 스위치 */
+@media (max-width:520px){.modes{grid-template-columns:repeat(2,1fr)!important}}
+.modes{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:6px}
+.mode{border:0;background:transparent;border-radius:10px;padding:10px 8px;display:flex;flex-direction:column;align-items:center;gap:0;line-height:1.3}
+.mode b{font-family:var(--display);font-weight:400;font-size:20px}
+.mode span{font-size:12px;color:var(--muted)}
+.mode[aria-pressed="true"]{background:var(--accent);color:var(--paper)}
+.mode[aria-pressed="true"] span{color:inherit;opacity:.85}
+
+/* 헤더 */
+header{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:end}
+.title h1{font-size:clamp(40px,8vw,72px);line-height:1}
+.title h1 .mode-tag{font-size:.42em;color:var(--accent);margin-left:.25em;vertical-align:middle}
+.slogan{margin:10px 0 0;font-size:17px;color:var(--muted)}
+.slogan b{color:var(--ink)}
+.badge{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 18px;min-width:220px;position:relative}
+.badge::before{content:"";position:absolute;top:-7px;left:50%;width:44px;height:10px;margin-left:-22px;border-radius:6px;background:var(--line)}
+.badge .score{font-family:var(--display);font-size:40px;line-height:1.1;font-variant-numeric:tabular-nums}
+.badge .rank{font-size:13px;color:var(--muted)}
+.meter{height:6px;background:var(--bg);border-radius:4px;margin-top:8px;overflow:hidden}
+.meter i{display:block;height:100%;background:var(--accent);width:0;transition:width .4s}
+@media (max-width:640px){header{grid-template-columns:1fr}.badge{min-width:0}}
+
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tab{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:8px 16px;font-size:14px}
+.tab[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tab small{font-family:var(--mono);opacity:.7;margin-left:4px}
+
+section{display:flex;flex-direction:column;gap:16px}
+.sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.sec-head h2{font-size:28px}
+.note{font-size:12px;color:var(--muted)}
+
+/* 주제 카드 */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.card-top{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.grade{font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.g-safe{color:var(--safe);background:var(--safe-bg)}
+.g-warn{color:var(--warn);background:var(--warn-bg)}
+.g-ban{color:var(--ban);background:var(--ban-bg)}
+.time{font-family:var(--mono);font-size:11px;color:var(--muted);text-align:right}
+.card h3{margin:0;font-size:18px;line-height:1.35;text-wrap:balance}
+.card p{margin:0;color:var(--muted);font-size:14px}
+.script{border-left:3px solid var(--hl);padding:6px 10px;background:var(--bg);border-radius:0 6px 6px 0;font-size:14px}
+.script .label{display:block;margin-bottom:2px}
+.followup{font-size:14px}
+.followup b{font-weight:500;color:var(--accent)}
+.used{margin-top:auto;align-self:flex-start;border:1px solid var(--line);background:transparent;border-radius:8px;padding:6px 12px;font-size:13px}
+.used.done{background:var(--hl);color:var(--hl-ink);border-color:var(--hl)}
+.ban-tip{font-size:13px;color:var(--ban)}
+.src{font-size:12px;color:var(--muted);text-decoration:none;align-self:flex-start}
+.src:hover{color:var(--accent);text-decoration:underline}
+.hook{font-family:var(--display);font-size:clamp(18px,3vw,22px);color:var(--accent);margin:4px 0 6px}
+
+/* 질문 리스트 */
+.q-pick{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:18px 20px;display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center}
+.q-pick .q-now{font-family:var(--display);font-size:clamp(22px,4vw,30px);line-height:1.3;text-wrap:balance}
+.q-pick .q-stage{font-size:13px;color:var(--accent);font-weight:500}
+.q-btns{display:flex;gap:8px;flex-wrap:wrap}
+.btn{background:var(--ink);color:var(--bg);border:0;border-radius:8px;padding:10px 16px;font-weight:700;font-size:14px}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);font-weight:500}
+@media (max-width:640px){.q-pick{grid-template-columns:1fr}}
+.q-groups{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.q-group{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.q-group.ban{border-color:var(--ban);border-style:dashed}
+.q-group h3{margin:0;font-size:16px;display:flex;justify-content:space-between;gap:8px;align-items:center}
+.q-group .q-desc{margin:0;font-size:13px;color:var(--muted)}
+.q-group ol{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:6px;font-size:14px}
+.q-group ol li::marker{font-family:var(--mono);color:var(--muted);font-size:12px}
+.q-group.ban ol li{text-decoration:line-through;text-decoration-color:var(--ban);color:var(--muted)}
+.q-group li button{all:unset;cursor:pointer;border-radius:4px}
+.q-group li button:hover{background:linear-gradient(transparent 55%,var(--hl) 55%)}
+.q-group li button:focus-visible{outline:2px solid var(--accent)}
+
+/* 영상 */
+.rail{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.vid{background:var(--paper);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;text-decoration:none;color:inherit;min-width:0}
+.thumb{aspect-ratio:16/10;max-width:100%;display:grid;place-items:center;font-size:44px;position:relative;background:var(--bg)}
+.thumb .plat{position:absolute;top:10px;left:10px;font-family:var(--mono);font-size:11px;padding:3px 8px;border-radius:4px;background:var(--ink);color:var(--bg)}
+.thumb .views{position:absolute;bottom:10px;right:10px;font-family:var(--mono);font-size:12px;padding:2px 8px;border-radius:4px;background:var(--paper);font-variant-numeric:tabular-nums}
+.vid-body{padding:14px;display:flex;flex-direction:column;gap:6px}
+.vid-body h3{margin:0;font-size:15px;line-height:1.4}
+.vid-body p{margin:0;font-size:13px;color:var(--muted)}
+.vid-body .go{font-size:13px;color:var(--accent);font-weight:500}
+.vid:hover{border-color:var(--accent)}
+
+.duo{display:grid;grid-template-columns:1.2fr 1fr;gap:14px}
+@media (max-width:760px){.duo{grid-template-columns:1fr}}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:20px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.panel h2{font-size:24px}
+.reaction{font-family:var(--display);font-size:clamp(26px,5vw,36px);line-height:1.25;min-height:2.6em;display:flex;align-items:center}
+.reaction-use{font-size:13px;color:var(--muted)}
+.legend{display:flex;flex-direction:column;gap:12px;margin:0;padding:0;list-style:none}
+.legend li{display:grid;grid-template-columns:64px 1fr;gap:10px;align-items:start;font-size:14px}
+.legend .grade{text-align:center}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 16px;border-radius:999px;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.on{opacity:1}
+footer{font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0}
+[hidden]{display:none!important}
+img{max-width:100%}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="modes" aria-label="모드 선택">
+    <button class="mode" data-m="work" aria-pressed="true"><b>회사</b><span>스몰톡 생존</span></button>
+    <button class="mode" data-m="love" aria-pressed="false"><b>연애</b><span>소개팅·썸·데이트</span></button>
+    <button class="mode" data-m="family" aria-pressed="false"><b>가족</b><span>명절·단톡방</span></button>
+    <button class="mode" data-m="politics" aria-pressed="false"><b>🔴 정치</b><span>출입 금지 구역</span></button>
+  </nav>
+
+  <header>
+    <div class="title">
+      <div class="label" id="today">TODAY</div>
+      <div class="hook">인싸 될래, 아싸 될래?</div>
+      <h1>사회생활 <span class="mark">하기</span><span class="mode-tag" id="modeTag">회사편</span></h1>
+      <p class="slogan" id="slogan"></p>
+    </div>
+    <div class="badge" aria-live="polite">
+      <div class="label" id="scoreLabel">오늘의 인싸 점수</div>
+      <div class="score" id="score">0</div>
+      <div class="rank" id="rank"></div>
+      <div class="meter"><i id="meter"></i></div>
+    </div>
+  </header>
+
+  <nav class="tabs" id="tabs" aria-label="상황 선택"></nav>
+
+  <section>
+    <div class="sec-head">
+      <h2 id="topicsTitle">오늘의 스몰톡 주제</h2>
+      <span class="note">2026년 11월 4일 기준 실제 이슈예요. 카드마다 출처를 달았어요.</span>
+    </div>
+    <div class="grid" id="topics"></div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2 id="qTitle">질문 리스트</h2>
+      <span class="note">질문을 누르면 복사돼요.</span>
+    </div>
+    <div class="q-pick">
+      <div>
+        <div class="q-stage" id="qStage"></div>
+        <div class="q-now" id="qNow"></div>
+      </div>
+      <div class="q-btns">
+        <button class="btn" id="qDraw">질문 뽑기</button>
+        <button class="btn ghost" id="qCopy">복사</button>
+      </div>
+    </div>
+    <div class="q-groups" id="qGroups"></div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>지금 바이럴 영상</h2>
+      <span class="note">요즘 실제로 유행 중인 밈이에요. 카드를 누르면 해당 플랫폼 검색 결과가 열려요.</span>
+    </div>
+    <div class="rail" id="videos"></div>
+  </section>
+
+  <div class="duo">
+    <div class="panel">
+      <div class="label">리액션 치트키</div>
+      <h2>말문 막혔을 때 뽑기</h2>
+      <div class="reaction" id="reaction"></div>
+      <div class="reaction-use" id="reactionUse"></div>
+      <button class="btn" id="draw" style="align-self:flex-start">다른 리액션 뽑기</button>
+    </div>
+    <div class="panel">
+      <div class="label">지뢰 등급 가이드</div>
+      <h2>꺼내도 되는 주제인가</h2>
+      <ul class="legend" id="legend"></ul>
+    </div>
+  </div>
+
+  <footer>사회생활 하기 · 2026년 11월 4일판. 주제는 뉴스와 밈 사전을 기준으로 골랐고, 영상 카드는 각 플랫폼 검색으로 연결돼요. 질문 리스트와 리액션은 매일 바뀌지 않는 고정 콘텐츠예요.</footer>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const SRC={
+ wx:["위키트리 11/4","https://www.wikitree.co.kr/articles/1171642"],
+ ks:["뉴스1","https://www.news1.kr/sports/baseball/6342026"],
+ csat:["헤럴드경제","https://www.heraldk.com/article/2026062919000082154"],
+ nf:["에스콰이어 11/2","https://www.esquirekorea.co.kr/article/1912427"],
+ nf2:["위키트리","https://m.wikitree.co.kr/articles/1171417"],
+ meme:["인스타공백닷컴 밈 사전","https://www.instablank.com/meme?sort=new"]
+};
+const yt=q=>"https://www.youtube.com/results?search_query="+encodeURIComponent(q+" shorts");
+const tt=q=>"https://www.tiktok.com/search?q="+encodeURIComponent(q);
+const ig=t=>"https://www.instagram.com/explore/tags/"+encodeURIComponent(t)+"/";
+
+const MODES={
+work:{
+ tag:"회사편",slogan:"<b>버텨야지, 먹고살려면.</b> 아싸를 위한 오늘의 스몰톡 생존 키트",
+ scoreLabel:"오늘의 인싸 점수",topicsTitle:"오늘의 스몰톡 주제",qTitle:"점심 테이블 질문 리스트",
+ sits:{elev:["🛗 엘리베이터","30s"],lunch:["🍱 점심","1h"],dinner:["🍻 회식","3h+"]},
+ ranks:[[0,"사원증만 걸고 다니는 단계"],[3,"엘리베이터 인사 성공"],[6,"점심 테이블 정착 완료"],[10,"탕비실 토크 지분 보유"],[15,"회식 분위기 메이커"]],
+ legend:[["safe","날씨, 음식, 연예, 동물, 계절 이벤트. 처음 보는 사람한테도 OK."],["warn","연봉, 성과급, 부동산, 육아. 상대가 먼저 꺼냈을 때만 받아치기."],["ban","정치, 종교, 외모, 남의 연애. 들어도 “아 그렇구나” 하고 화제 전환."]],
+ topics:[
+  {s:["elev","lunch"],g:"safe",t:"내일 출근길 비, 금요일부터 뚝",d:"5일(목) 오전 전국 대부분 비. 6일(금)부터 찬 공기가 내려와 아침 최저 2도까지 떨어져요.",m:"내일 아침에 비 온대요. 우산 챙기셨어요?",f:"금요일부터 추워진다던데 패딩 벌써 꺼내셨어요?",src:SRC.wx},
+  {s:["elev","lunch","dinner"],g:"safe",t:"한국시리즈 1차전, 8-0에서 8-7",d:"KT가 삼성에 8-0까지 앞서다 8-7로 진땀승. KT가 1승 먼저 챙겼어요.",m:"어제 야구 보셨어요? 8-0에서 8-7까지 쫓겼대요 ㅋㅋ",f:"응원하는 팀 있으세요?",w:"상대 응원팀부터 확인하고 놀리기",src:SRC.ks},
+  {s:["elev","lunch"],g:"safe",t:"수능 D-15, 11월 19일 목요일",d:"수능 당일엔 출근 시간이 늦춰지고 영어 듣기평가 시간엔 비행기 이착륙도 멈춰요.",m:"수능이 벌써 2주 남았대요. 그날 출근 늦게 하는 거 맞죠?",f:"수능 때 도시락 뭐 싸 가셨어요? (나이 노출 주의 ㅋ)",src:SRC.csat},
+  {s:["elev","lunch"],g:"safe",t:"다음 주 수요일 빼빼로데이",d:"11월 11일이 수요일. 편의점 진열대가 벌써 빼빼로 성벽이 됐어요.",m:"편의점 갔다가 빼빼로 벽에 막혀서 못 들어갈 뻔했어요.",f:"팀에 돌리는 문화 있어요? 아니면 각자도생?"},
+  {s:["lunch","dinner"],g:"safe",t:"치맥 말고 회크닉",d:"수산시장에서 회를 포장해 한강에서 먹는 가을 소풍이 유행이에요. 금요일부터 추워지니 이번 주가 막차.",m:"요즘 한강에서 치맥 말고 회 먹는대요. 회크닉이라고.",f:"회 좋아하세요? 노량진파세요, 가락시장파세요?",src:SRC.meme},
+  {s:["lunch"],g:"safe",t:"“딸깍” 한 번이면 끝",d:"버튼 한 번에 결과물이 나오는 AI 시대 유행어. 올해 SNS에서 가장 많이 언급된 밈으로 꼽혀요.",m:"이 보고서도 딸깍 한 번에 나오면 좋겠어요 ㅋㅋ",f:"요즘 AI 툴 뭐 쓰세요?",src:SRC.meme},
+  {s:["lunch","dinner"],g:"safe",t:"금요일 넷플릭스 ‘가능한 사랑’",d:"6일(금) 이창동 감독 신작 공개. 설경구, 전도연, 조여정, 조인성 출연.",m:"금요일에 이창동 감독 신작 나온대요. 조인성 나와요.",f:"요즘 보는 거 있으세요?",src:SRC.nf},
+  {s:["lunch","dinner"],g:"warn",t:"연말정산 시즌 다가옴",d:"13월의 월급이냐 세금 폭탄이냐. 남은 두 달 카드 사용 전략이 화제.",m:"올해는 진짜 미리 챙겨보려고요. 작년에 토해냈거든요 ㅠ",f:"체크카드 쓰세요, 신용카드 쓰세요?",w:"얼마 돌려받았는지는 묻지 말기"},
+  {s:["dinner"],g:"ban",t:"그 정치 뉴스 보셨어요?",d:"아무리 핫해도 회식 자리에서는 꺼내지 않는 게 국룰.",m:"(꺼내지 마세요) 대신 “요즘 뉴스가 너무 많아서 머리 아프네요”로 퉁치기.",f:"“그나저나 안주 하나 더 시킬까요?”로 화제 전환",w:"상대가 꺼내면 맞장구 대신 화제 전환"}
+ ],
+ qs:[
+  {n:"처음 같이 밥 먹을 때",d:"부담 없고 대답하기 쉬운 것부터",l:["이 근처 맛집 중에 최애 있으세요?","출근 몇 시쯤 하세요? 지하철 많이 막히죠?","주말엔 주로 집에 계세요, 나가세요?","요즘 보는 드라마나 예능 있어요?","점심 메뉴 고를 때 결정장애 있으세요?"]},
+  {n:"좀 친해졌을 때",d:"취향과 경험을 묻는 질문",l:["입사 전엔 어떤 일 하셨어요?","올해 휴가는 어디로 가셨어요?","회사 근처에서 퇴근하고 들르는 곳 있어요?","요즘 빠져 있는 취미 있으세요?","인생 첫 회사는 어땠어요?"]},
+  {n:"하지 마세요",d:"분위기 얼어붙는 질문",ban:1,l:["연봉 얼마 받으세요?","결혼 언제 하세요?","살 빠지셨어요? / 찌셨어요?","이직 준비하세요?","팀장님 어떻게 생각하세요?"]}
+ ],
+ videos:[
+  {p:"SHORTS",e:"🖱️",v:"2026 최다 언급",t:"딸깍 밈 모음",m:"“우리 일도 딸깍이면 좋겠다”로 공감 유도",u:yt("딸깍 밈")},
+  {p:"TIKTOK",e:"😾",v:"9~10월 유행",t:"그르 먼데이 (Grr Mondays)",m:"월요일 아침 팀 채팅방에 하나 던지기",u:tt("Grr Mondays")},
+  {p:"SHORTS",e:"👏",v:"9~10월 유행",t:"박수 치는 검은 고양이",m:"동료가 일 떠넘길 때 말 대신 이 짤 (친한 사이만)",u:yt("박수 치는 검은 고양이 밈")},
+  {p:"SHORTS",e:"🎂",v:"9월부터 유행",t:"나이별 반응 챌린지",m:"“저는 몇 살 반응이에요?”로 세대 토크 시작",u:yt("나이별 반응 챌린지")}
+ ],
+ reactions:[["“헐, 진짜요?”","상대가 뭔가 말했는데 할 말이 없을 때. 눈썹을 같이 올리면 효과 2배."],["“와, 그건 몰랐네요.”","상대가 TMI를 풀 때. 진심으로 몰랐을 확률이 높아서 연기도 필요 없어요."],["“그래서 어떻게 됐어요?”","대화 주도권을 상대에게 넘기는 만능 질문. 듣기만 하면 됩니다."],["“ㅋㅋㅋ 그거 완전 공감이에요.”","공감 포인트를 찾았을 때. 경험 하나 붙이면 인싸 레벨업."],["“오 맛있겠다, 어디예요?”","음식 얘기가 나오면 무조건. 실패 확률 0%."],["“역시 다들 비슷하네요.”","주제가 애매하게 끝날 때 깔끔하게 마무리하는 멘트."]]
+},
+love:{
+ tag:"연애편",slogan:"<b>외로워도 슬퍼도, 일단 만나야지.</b> 소개팅부터 썸, 데이트까지 대화 생존 키트",
+ scoreLabel:"오늘의 설렘 점수",topicsTitle:"오늘의 데이트 대화 주제",qTitle:"연애 질문 리스트",
+ sits:{blind:["☕ 소개팅","첫 만남"],some:["💬 썸","카톡"],date:["🌙 연애 중","데이트"]},
+ ranks:[[0,"프로필 사진만 3년째"],[3,"애프터 신청 받는 사람"],[6,"카톡 답장 기다려지는 사이"],[10,"주말 약속 고정"],[15,"연애 고수"]],
+ legend:[["safe","취향, 음식, 여행, 주말 루틴, 반려동물. 첫 만남에도 OK."],["warn","MBTI, 연애 스타일, 결혼관. 분위기 무르익었을 때만."],["ban","전 애인, 연봉, 집안, 외모 평가. 첫 만남 3대 금기."]],
+ topics:[
+  {s:["blind","some"],g:"safe",t:"오늘 공개 ‘연애기숙학교 2기’",d:"돌싱 여성과 모솔 남성이 한 기숙학교에서 생활하는 넷플릭스 연애 예능. 채정안, 김풍, 넉살이 지켜봐요.",m:"넷플릭스에 돌싱이랑 모솔이 같이 사는 연애 예능 나왔대요 ㅋㅋ",f:"연애 예능 보는 편이에요? 최애 프로그램 있어요?",src:SRC.nf},
+  {s:["some","date"],g:"safe",t:"빼빼로데이에 ‘초속 5센티미터’",d:"11월 11일 넷플릭스에 신카이 마코토의 첫사랑 애니가 올라와요. 빼빼로데이와 같은 날.",m:"빼빼로데이에 초속 5센티미터 올라온대요. 같이 볼래요?",f:"첫사랑 영화 보면 우는 편이에요?",src:SRC.nf2},
+  {s:["some"],g:"warn",t:"전여친 감자칼 밈",d:"헤어진 연인이 다른 건 다 두고 감자칼만 보내달라 했다는 스레드 글이 이별 밈이 됐어요.",m:"감자칼 밈 보셨어요? 저 그거 보고 한참 웃었어요 ㅋㅋ",f:"이별할 때 절대 못 두고 갈 물건 하나는?",w:"웃고 넘기기. 상대의 전 애인 얘기로 번지면 즉시 철수",src:SRC.meme},
+  {s:["blind","some"],g:"safe",t:"추워지기 전 회크닉 데이트",d:"치맥 대신 회를 포장해 한강에서 먹는 가을 소풍. 금요일부터 추워지니 이번 주가 막차.",m:"요즘 한강에서 회 먹는 게 유행이래요. 회 좋아하세요?",f:"추워지기 전에 한 번 가볼래요?",src:SRC.meme},
+  {s:["date"],g:"safe",t:"‘미 비포 유’ 10주년 재공개",d:"6일(금) 넷플릭스 재공개. 에밀리아 클라크, 샘 클래플린 주연의 눈물 버튼 로맨스.",m:"미 비포 유 다시 올라온대요. 그거 보고 울었어요?",f:"인생 로맨스 영화 하나만 꼽는다면?",src:SRC.nf},
+  {s:["some","date"],g:"safe",t:"빼빼로데이, 썸에서 줘도 되나?",d:"다음 주 수요일. 썸 단계에서 주면 고백이냐 아니냐 논쟁이 매년 반복돼요.",m:"빼빼로데이 그런 거 챙기는 편이에요? 저는 받으면 좋던데 ㅋㅋ",f:"무슨 맛 좋아해요? (다음 주에 슬쩍 준비)"},
+  {s:["date"],g:"safe",t:"크리스마스 예약 전쟁 시작",d:"인기 레스토랑과 호텔은 11월 초에 크리스마스 예약이 마감된다는 말이 돌아요.",m:"크리스마스 레스토랑 벌써 예약 다 찼대요. 우리 뭐 할까요?",f:"북적이는 데 vs 집에서 조용히, 어느 쪽이 좋아요?"},
+  {s:["blind","some"],g:"warn",t:"MBTI 뭐예요?",d:"대화 물꼬 트기엔 좋지만, 첫 질문으로 쓰면 식상하다는 반응도 많아요.",m:"MBTI 믿는 편이에요? 저는 반쯤만 믿어요 ㅋㅋ",f:"그럼 계획파예요, 즉흥파예요?",w:"MBTI로 사람 단정 짓지 않기"},
+  {s:["blind"],g:"ban",t:"전 애인이랑 왜 헤어졌어요?",d:"첫 만남에서 꺼내면 바로 다음이 없어지는 질문 1위.",m:"(꺼내지 마세요) 궁금해도 세 번째 만남 이후로 미루기.",f:"대신 “연애할 때 어떤 게 제일 중요해요?” 정도로 돌려 묻기",w:"상대가 먼저 꺼내도 깊게 파지 않기"}
+ ],
+ qs:[
+  {n:"소개팅 첫 만남",d:"부담 없이 대화 물꼬 트기",l:["주말엔 보통 뭐 하면서 보내세요?","요즘 제일 재밌게 본 거 있어요?","최근에 먹은 것 중 제일 맛있었던 거 뭐예요?","여행 가면 계획파예요, 즉흥파예요?","강아지파예요, 고양이파예요?","이 동네 자주 오세요?","요즘 빠져 있는 거 있어요?"]},
+  {n:"썸 단계",d:"취향과 일상을 조금 더 깊게",l:["하루 중 제일 좋아하는 시간이 언제예요?","스트레스 받으면 어떻게 풀어요?","버킷리스트 하나만 알려줘요","어릴 때 꿈이 뭐였어요?","완벽한 주말 하루를 짠다면?","전화파예요, 카톡파예요?","인생 영화 하나만 꼽는다면?"]},
+  {n:"연애 중",d:"서로를 더 알아가는 질문",l:["나 처음 봤을 때 첫인상 어땠어?","언제 사랑받는다고 느껴?","싸우면 바로 풀어야 하는 편이야, 시간이 필요한 편이야?","같이 꼭 해보고 싶은 거 있어?","10년 뒤에 어떤 모습이면 좋겠어?","요즘 제일 고마웠던 사람은 누구야?"]},
+  {n:"하지 마세요",d:"첫 만남에서 다음을 없애는 질문",ban:1,l:["전 애인이랑 왜 헤어졌어요?","연봉 얼마예요?","집은 자가예요?","결혼 언제 하실 거예요?","몇 명 만나봤어요?","왜 아직 솔로예요?"]}
+ ],
+ videos:[
+  {p:"SHORTS",e:"🏫",v:"11월 4일 공개",t:"연애기숙학교 2기 돌싱N모솔",m:"“이거 보실래요?” 한마디로 다음 대화 소재 확보",u:yt("연애기숙학교 돌싱N모솔")},
+  {p:"TIKTOK",e:"🥔",v:"10월 유행",t:"전여친 감자칼",m:"썸 단계 웃음 소재. 첫 만남에선 아껴두기",u:tt("전여친 감자칼")},
+  {p:"TIKTOK",e:"🐢",v:"10월 유행",t:"다비치 거북이 이불 챌린지",m:"“주말엔 저 이 상태예요” 하면서 집순이·집돌이 고백",u:tt("다비치 거북이 챌린지")},
+  {p:"SHORTS",e:"🎵",v:"10월 유행",t:"‘영원할 건가 보다’ 밈",m:"야근 얘기 나올 때 “영원할 건가 보다~” 한 소절",u:yt("영원할 건가 보다 밈")}
+ ],
+ reactions:[["“와, 그거 너무 좋다.”","상대가 좋아하는 걸 말할 때. 눈 마주치고 하면 호감도 상승."],["“어 저도요!”","공통점 발견 시 즉시 발사. 진짜일 때만 쓰기."],["“그 얘기 더 해줘요.”","상대가 신나서 말할 때. 최고의 리액션은 질문이에요."],["“의외인데요? 그런 모습 있었어요?”","반전 매력을 발견했을 때. 칭찬처럼 들려요."],["“다음에 거기 같이 가요.”","맛집이나 장소 얘기가 나왔을 때. 애프터 자연 생성."],["“ㅋㅋㅋ 웃기다 진짜”","카톡에서 할 말 없을 때. ㅋ 개수는 상대에 맞추기."]]
+},
+family:{
+ tag:"가족편",slogan:"<b>피는 물보다 진한데, 대화는 왜 어렵지.</b> 명절과 단톡방 생존 키트",
+ scoreLabel:"오늘의 효도 점수",topicsTitle:"오늘의 가족 대화 주제",qTitle:"가족 질문 리스트",
+ sits:{holiday:["🍲 명절·모임","친척"],inlaw:["🏠 시댁·처가","방문"],chat:["📱 가족 단톡방","메시지"]},
+ ranks:[[0,"용돈만 보내는 자식"],[3,"안부 전화 성공"],[6,"단톡방 리액션 담당"],[10,"명절 분위기 메이커"],[15,"집안의 자랑"]],
+ legend:[["safe","음식, 건강, 날씨, 여행, 옛날 얘기. 어르신들이 제일 좋아하는 주제."],["warn","부동산, 진로, 육아 방식. 조언이 잔소리로 바뀌기 쉬워요."],["ban","결혼·출산 재촉, 성적, 정치, 친척 비교. 명절 싸움의 원인 1위."]],
+ topics:[
+  {s:["holiday","inlaw","chat"],g:"safe",t:"올해 김장 언제 해요?",d:"11월은 김장 시즌. 배추값과 김장 날짜가 단톡방 최대 화제.",m:"올해 김장은 언제 하세요? 이번엔 저도 가서 도울게요",f:"엄마 김치 비법은 대체 뭐예요?"},
+  {s:["chat","inlaw"],g:"safe",t:"금요일부터 아침 2도",d:"6일(금)부터 찬 공기가 내려와 아침 기온이 뚝. 어르신들은 날씨 안부를 제일 반가워해요.",m:"금요일부터 갑자기 추워진대요. 보일러 미리 틀어두세요!",f:"감기 기운 있으시면 바로 병원 가셔야 해요",src:SRC.wx},
+  {s:["holiday","chat"],g:"safe",t:"아빠랑 한국시리즈 얘기",d:"KT와 삼성의 한국시리즈. 1차전은 8-0에서 8-7까지 쫓긴 KT의 진땀승.",m:"아빠 어제 야구 보셨어요? 8-0에서 8-7까지 갔대요",f:"아빠는 몇 차전에서 끝날 것 같아요?",w:"집안에 다른 팀 팬이 있으면 🟡",src:SRC.ks},
+  {s:["chat","holiday"],g:"safe",t:"나혼산 김민의 동두천 구옥",d:"배우 김민의 동두천 자연인 생활이 따라하기 밈이 될 만큼 화제예요.",m:"엄마 나혼산 그 동두천 집 봤어요? 엄마 어릴 때 집이랑 비슷해요?",f:"옛날 집엔 아궁이 있었어요?",src:SRC.meme},
+  {s:["holiday","inlaw"],g:"safe",t:"엄마 아빠 연애 시절 얘기",d:"한번 꺼내면 30분은 자동으로 흘러가는 만능 주제.",m:"엄마 아빠는 처음에 어디서 만났어요?",f:"그때 데이트는 어디서 했어요?"},
+  {s:["holiday","chat"],g:"warn",t:"수능 D-15 조카",d:"11월 19일(목) 수능. 응원은 하되 점수와 대학은 묻지 않는 게 예의.",m:"수능 얼마 안 남았네! 컨디션 관리 잘하고 끝나면 맛있는 거 사줄게",f:"끝나면 제일 하고 싶은 거 뭐야?",w:"점수, 지원 대학은 묻지 않기",src:SRC.csat},
+  {s:["holiday","inlaw"],g:"ban",t:"“둘째는 언제?” “결혼은 언제?”",d:"명절 잔소리 1위. 받았을 때 방어하는 법만 알아두세요.",m:"(받았을 때) “때 되면 알아서 할게요, 그나저나 이 전 진짜 맛있네요!”",f:"음식 칭찬으로 화제 전환이 제일 안전",w:"내가 다른 사람한테 묻는 것도 금지"}
+ ],
+ qs:[
+  {n:"부모님께",d:"옛날 얘기가 술술 나오는 질문",l:["처음에 두 분 어디서 만났어요?","제 어릴 때 제일 기억나는 일이 뭐예요?","젊었을 때 꿈은 뭐였어요?","제일 기억에 남는 여행은 어디예요?","요즘 제일 재밌는 게 뭐예요?","할머니 할아버지는 어떤 분이셨어요?"]},
+  {n:"친척 모임",d:"어색한 침묵을 깨는 질문",l:["요즘 건강은 괜찮으세요?","이 음식 레시피 알려주세요!","올해 여행 다녀오신 데 있어요?","요즘 제일 즐겨 보시는 프로그램 있어요?","손주들 많이 컸죠?"]},
+  {n:"잔소리 방어 멘트",d:"받았을 때 웃으며 넘기기",l:["“때 되면 알아서 잘할게요!”","“그러게요, 저도 궁금해요 ㅎㅎ”","“그나저나 이 전 진짜 맛있네요!”","“걱정해 주셔서 감사해요”","“그 얘기는 다음 명절에 할게요 ㅋㅋ”"]},
+  {n:"하지 마세요",d:"명절 싸움을 부르는 질문",ban:1,l:["결혼은 언제 하니?","둘째는 언제 낳니?","수능 몇 점 나왔어?","누구네 애는 대기업 갔다던데?","연봉은 얼마나 받니?"]}
+ ],
+ videos:[
+  {p:"SHORTS",e:"🏚️",v:"10월 유행",t:"김민 동두천 자연인 따라하기",m:"부모님 단톡방에 올리고 “엄마 어릴 때 이랬어요?”",u:yt("김민 동두천 나혼자산다")},
+  {p:"SHORTS",e:"📺",v:"10월 유행",t:"몽땅거침없이순풍감자별 AI 시트콤",m:"“순풍산부인과 기억나세요?” 하고 추억 소환",u:yt("몽땅거침없이순풍감자별")},
+  {p:"SHORTS",e:"⚾",v:"11월 3일",t:"한국시리즈 1차전 하이라이트",m:"아빠한테 보내면 30분 통화 각",u:yt("한국시리즈 1차전 하이라이트 KT 삼성")},
+  {p:"SHORTS",e:"🐱",v:"10월 중순부터",t:"과학자들이 Hi를 밝히다",m:"가족 단톡방 아침 인사용. 분위기 전환에도 좋아요",u:yt("과학자들이 Hi를 밝히다")}
+ ],
+ reactions:[["“역시 엄마 음식이 최고야.”","식탁에서 할 말 없을 때. 효도 점수 즉시 +10."],["“몸은 괜찮으세요?”","어떤 대화 중이든 끼워 넣을 수 있는 만능 안부."],["“어머, 정말요? 그래서요?”","어르신 옛날 얘기에 최적화된 리액션."],["“다음엔 제가 살게요!”","외식 자리 마무리용. 실제로 계산하면 레전드."],["“사진 보내드릴게요!”","단톡방 대화를 이어가는 마법의 문장."],["“ㅎㅎ 감사해요, 잘 챙길게요.”","잔소리가 시작될 때 부드럽게 마무리."]]
+}
+};
+MODES.politics={
+ tag:"정치편",slogan:"<b>모르는 척이 국룰.</b> 정치 얘기가 나왔을 때 살아서 나가는 법",
+ scoreLabel:"오늘의 회피 성공 점수",topicsTitle:"정치 얘기 나왔을 때 탈출 매뉴얼",qTitle:"화제 전환 질문 리스트",
+ sits:{dinner:["🍻 회식","상사 발언"],holiday:["🍲 명절","친척 토론"],chat:["📱 단톡방","기사 링크"]},
+ ranks:[[0,"정치 얘기에 얼어붙는 단계"],[3,"고개 끄덕이기 장인"],[6,"화제 전환 3초 컷"],[10,"어느 편도 아닌 스위스"],[15,"정치 토론 무사 생환자"]],
+ legend:[["safe","“선거날 쉬는데 뭐 하세요?” 정도의 일정 얘기까지만."],["warn","세금, 물가처럼 모두가 겪는 생활 얘기. 누구 탓인지는 말하지 않기."],["ban","지지 정당, 특정 정치인 평가, 선거 결과 해석. 회사·명절·단톡방 모두 금지."]],
+ topics:[
+  {s:["dinner","chat"],g:"ban",t:"“어제 미국 중간선거 봤어?”",d:"3일(현지시간) 미국 중간선거. 해외 뉴스여도 해석이 갈리면 순식간에 토론장이 돼요.",m:"“결과는 저도 나중에 뉴스로 봐야겠어요.”",f:"“그나저나 미국 여행 가보신 적 있어요?”",w:"누가 이겼냐 대신 여행·환율 얘기로 빠지기"},
+  {s:["dinner"],g:"ban",t:"부장님이 갑자기 뉴스 얘기를 시작했다",d:"맞장구도 반박도 위험해요. 듣는 척하면서 출구를 찾는 게 정답.",m:"“아 그런 일이 있었어요? 제가 요즘 뉴스를 잘 못 봐서요.”",f:"“그나저나 여기 안주 진짜 맛있네요, 하나 더 시킬까요?”",w:"내 의견 말하는 순간 회식 3시간 연장"},
+  {s:["holiday"],g:"ban",t:"큰아버지와 삼촌의 명절 토론 배틀",d:"명절 정치 토론은 승자가 없어요. 조용히 과일 깎으러 가기.",m:"“제가 과일 좀 깎아올게요!”",f:"“할머니, 이 식혜 어떻게 만드신 거예요?”",w:"한쪽 편 드는 순간 다음 명절까지 소환됨"},
+  {s:["chat"],g:"ban",t:"가족 단톡방에 정치 기사 링크가 올라왔다",d:"읽씹도, 반박도 아닌 제3의 길이 필요해요.",m:"(이모티콘 하나 보내고) “다들 저녁은 드셨어요?”",f:"귀여운 강아지 사진으로 타임라인 덮기",w:"절대 반박 기사 링크로 맞불 놓지 않기"},
+  {s:["dinner","holiday"],g:"ban",t:"“너는 누구 찍었어?”",d:"비밀투표는 헌법이 보장하는 권리예요. 당당하게 비밀로 하기.",m:"“그건 비밀투표라서요 ㅎㅎ 헌법이 지켜주는 비밀이에요.”",f:"“투표 끝나고 뭐 드셨어요? 저는 치킨 먹었어요.”",w:"농담으로라도 답하지 않기"},
+  {s:["dinner","chat"],g:"ban",t:"동료가 나한테 동의를 구한다",d:"“그렇지 않아?”는 함정 질문. 중립 리액션으로 받아내기.",m:"“음, 생각해 볼 게 많은 문제네요.”",f:"“아 맞다, 내일 회의 몇 시였죠?”",w:"고개를 너무 크게 끄덕이지 않기"},
+  {s:["holiday","chat"],g:"ban",t:"내가 뭔가 말하고 싶어질 때",d:"참는 자에게 평화가 있어요. 정 하고 싶으면 믿을 만한 친구한테만.",m:"(속으로 삼키고) “다들 생각이 다양하네요.”",f:"“우리 이번 겨울에 다 같이 여행 갈까요?”",w:"술 들어가면 위험도 2배"}
+ ],
+ qs:[
+  {n:"회식 탈출용",d:"정치 얘기를 끊고 넘어가는 질문",l:["여기 2차 어디로 가요?","연말 휴가 계획 있으세요?","요즘 제일 맛있게 드신 거 뭐예요?","올해 회사에서 제일 기억나는 일 뭐예요?","주말에 축구 보셨어요?"]},
+  {n:"명절 탈출용",d:"어르신 관심을 다른 데로 돌리기",l:["이 음식 레시피 알려주세요!","옛날 명절엔 어떻게 보냈어요?","요즘 건강은 괜찮으세요?","손주 사진 보실래요?","올해 김장은 언제 해요?"]},
+  {n:"단톡방 탈출용",d:"분위기 바꾸는 메시지",l:["다들 저녁은 드셨어요?","(귀여운 동물 사진) 이거 보세요 ㅋㅋ","요즘 날씨 추워졌는데 감기 조심하세요!","이번 주말에 다들 뭐 해요?"]},
+  {n:"하지 마세요",d:"어디서든 싸움 나는 질문",ban:1,l:["누구 찍으셨어요?","그 정치인 어떻게 생각하세요?","그 당 지지하는 사람들은 왜 그래요?","이번 선거 결과 어떻게 보세요?","그 뉴스 보고 화 안 나셨어요?"]}
+ ],
+ videos:[
+  {p:"SHORTS",e:"🤐",v:"310만",t:"정치 얘기 나왔을 때 직장인 표정 모음",m:"회사 단톡방 말고, 친한 동기한테만 보내기",u:yt("회식 정치 얘기 직장인")},
+  {p:"REELS",e:"🏃",v:"205만",t:"명절 토론 시작되자 사라지는 사촌들",m:"사촌 단톡방 전용. “우리 집 얘기인 줄”",u:ig("명절공감")},
+  {p:"TIKTOK",e:"🐶",v:"620만",t:"분위기 바꾸는 강아지 영상",m:"단톡방 정치 기사 덮기용 비상약",u:tt("귀여운 강아지")},
+  {p:"SHORTS",e:"🔄",v:"174만",t:"화제 전환 장인 콩트",m:"보고 화제 전환 멘트 하나 외워두기",u:yt("화제 전환 콩트")}
+ ],
+ reactions:[["“아, 그런 시각도 있군요.”","동의도 반대도 아닌 완벽한 중립. 정치편 최강 리액션."],["“제가 그쪽은 잘 몰라서요 ㅎㅎ”","모르는 척은 부끄러운 게 아니라 생존 기술이에요."],["“다들 생각이 다양하네요.”","토론이 과열될 때 한발 물러서며 정리하는 멘트."],["“그나저나…”","화제 전환의 시작을 알리는 마법의 단어. 뒤에 아무 말이나 붙이세요."],["“잠깐 화장실 좀 다녀올게요.”","최후의 수단. 돌아오면 대부분 화제가 바뀌어 있어요."],["“음… (물 마시기)”","말 대신 행동. 물잔이 비면 리필 핑계로 자리 이탈."]]
+};
+const GRADE={safe:["g-safe","🟢 안전"],warn:["g-warn","🟡 주의"],ban:["g-ban","🔴 금지"]};
+const dayKey=new Date().toISOString().slice(0,10);
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let mode="work",filter="all",used=new Set(),ri=-1,curQ=null;
+const $=id=>document.getElementById(id);
+$("today").textContent=new Date().toLocaleDateString("ko-KR",{year:"numeric",month:"long",day:"numeric",weekday:"long"});
+
+function toast(t){const el=$("toast");el.textContent=t;el.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove("on"),1400)}
+function copy(text){
+  const done=()=>toast("복사했어요");
+  try{navigator.clipboard.writeText(text).then(done,()=>toast("복사가 안 되면 길게 눌러 선택해 주세요"))}catch(e){toast("복사가 안 되면 길게 눌러 선택해 주세요")}
+}
+function setMode(m){
+  if(!MODES[m])m="work";mode=m;filter="all";const M=MODES[m];
+  document.body.dataset.mode=m;
+  document.querySelectorAll(".mode").forEach(b=>b.setAttribute("aria-pressed",b.dataset.m===m));
+  $("modeTag").textContent=M.tag;$("slogan").innerHTML=M.slogan;$("scoreLabel").textContent=M.scoreLabel;
+  $("topicsTitle").textContent=M.topicsTitle;$("qTitle").textContent=M.qTitle;
+  used=new Set(store.get("sgs-"+m+"-"+dayKey,[]));
+  $("tabs").innerHTML=`<button class="tab" data-s="all" aria-pressed="true">전체</button>`+Object.entries(M.sits).map(([k,[n,t]])=>`<button class="tab" data-s="${k}" aria-pressed="false">${n} <small>${t}</small></button>`).join("");
+  $("legend").innerHTML=M.legend.map(([g,t])=>`<li><span class="grade ${GRADE[g][0]}">${GRADE[g][1]}</span><span>${t}</span></li>`).join("");
+  renderTopics();renderQs();renderVideos();renderScore();drawReaction();drawQ();
+  if(location.hash.slice(1)!==m)history.replaceState(null,"","#"+m);
+}
+function renderTopics(){
+  const M=MODES[mode];
+  $("topics").innerHTML=M.topics.map((x,i)=>{
+    if(filter!=="all"&&!x.s.includes(filter))return"";
+    const done=used.has(i);
+    return `<article class="card"><div class="card-top"><span class="grade ${GRADE[x.g][0]}">${GRADE[x.g][1]}</span><span class="time">${x.s.map(s=>M.sits[s][0].replace(/^\S+\s/,"")).join(" · ")}</span></div>
+      <h3>${x.t}</h3><p>${x.d}</p>
+      <div class="script"><span class="label">꺼낼 멘트</span>${x.m}</div>
+      <div class="followup"><b>이어가기 →</b> ${x.f}</div>
+      ${x.w?`<div class="ban-tip">⚠ ${x.w}</div>`:""}
+      ${x.src?`<a class="src" href="${x.src[1]}" target="_blank" rel="noopener">출처 · ${x.src[0]} ↗</a>`:""}
+      ${x.g!=="ban"?`<button class="used${done?" done":""}" data-i="${i}">${done?"✓ 써먹었다 (+3)":"써먹었다"}</button>`:""}</article>`;
+  }).join("");
+}
+function renderQs(){
+  $("qGroups").innerHTML=MODES[mode].qs.map(g=>`<div class="q-group${g.ban?" ban":""}">
+    <h3>${g.n}${g.ban?`<span class="grade g-ban">🔴 금지</span>`:""}</h3><p class="q-desc">${g.d}</p>
+    <ol>${g.l.map(q=>g.ban?`<li>${q}</li>`:`<li><button data-q="${q.replace(/"/g,"&quot;")}">${q}</button></li>`).join("")}</ol></div>`).join("");
+}
+function drawQ(){
+  const pool=[];MODES[mode].qs.forEach(g=>{if(!g.ban)g.l.forEach(q=>pool.push([g.n,q]))});
+  let n;do{n=pool[Math.floor(Math.random()*pool.length)]}while(pool.length>1&&curQ&&n[1]===curQ[1]);
+  curQ=n;$("qStage").textContent=n[0];$("qNow").textContent=n[1];
+}
+function renderVideos(){
+  $("videos").innerHTML=MODES[mode].videos.map(v=>`<a class="vid" href="${v.u}" target="_blank" rel="noopener">
+    <div class="thumb"><span class="plat">${v.p}</span>${v.e}<span class="views">🔥 ${v.v}</span></div>
+    <div class="vid-body"><h3>${v.t}</h3><p>💬 ${v.m}</p><span class="go">보러 가기 ↗</span></div></a>`).join("");
+}
+function renderScore(){
+  const s=used.size*3,R=MODES[mode].ranks;$("score").textContent=s;
+  let r=R[0][1];R.forEach(([n,l])=>{if(s>=n)r=l});$("rank").textContent=r;
+  $("meter").style.width=Math.min(100,s/15*100)+"%";
+}
+function drawReaction(){
+  const R=MODES[mode].reactions;let n;do{n=Math.floor(Math.random()*R.length)}while(n===ri&&R.length>1);ri=n;
+  $("reaction").textContent=R[n][0];$("reactionUse").textContent=R[n][1];
+}
+document.querySelectorAll(".mode").forEach(b=>b.addEventListener("click",()=>setMode(b.dataset.m)));
+$("tabs").addEventListener("click",e=>{const t=e.target.closest(".tab");if(!t)return;filter=t.dataset.s;
+  document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-pressed",x===t));renderTopics()});
+$("topics").addEventListener("click",e=>{const b=e.target.closest(".used");if(!b)return;const i=+b.dataset.i;
+  used.has(i)?used.delete(i):used.add(i);store.set("sgs-"+mode+"-"+dayKey,[...used]);renderTopics();renderScore()});
+$("qGroups").addEventListener("click",e=>{const b=e.target.closest("button[data-q]");if(b)copy(b.dataset.q)});
+$("qDraw").addEventListener("click",drawQ);
+$("qCopy").addEventListener("click",()=>curQ&&copy(curQ[1]));
+$("draw").addEventListener("click",drawReaction);
+window.addEventListener("hashchange",()=>{const h=location.hash.slice(1);if(h!==mode&&MODES[h])setMode(h)});
+setMode(location.hash.slice(1)||"work");
+</script>
+</body>
+</html>
