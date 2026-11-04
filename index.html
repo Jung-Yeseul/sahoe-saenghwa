@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="인싸 될래, 아싸 될래? 회사·연애·가족·정치 상황별 스몰톡 주제와 질문 리스트, 바이럴 영상, 리액션 치트키">
+<meta name="description" content="인싸 될래, 아싸 될래? 오늘의 스몰톡 주제, 사회생활 MBTI, 이 말 해도 돼 판정기, 상황 롤플레이">
 <meta property="og:title" content="사회생활 하기">
-<meta property="og:description" content="버텨야지, 먹고살려면. 아싸를 위한 오늘의 스몰톡 생존 키트">
+<meta property="og:description" content="버텨야지, 먹고살려면. 나의 사회생활 유형은? 1분 테스트">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💬</text></svg>">
 <title>사회생활 하기</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -108,6 +108,66 @@ section{display:flex;flex-direction:column;gap:16px}
 .ban-tip{font-size:13px;color:var(--ban)}
 .src{font-size:12px;color:var(--muted);text-decoration:none;align-self:flex-start}
 .src:hover{color:var(--accent);text-decoration:underline}
+/* 메뉴 */
+.views{display:flex;gap:2px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+.view-btn{border:0;background:none;padding:10px 14px;font-weight:700;font-size:15px;color:var(--muted);border-bottom:3px solid transparent;white-space:nowrap;margin-bottom:-1px}
+.view-btn[aria-current="page"]{color:var(--ink);border-bottom-color:var(--accent)}
+.view{display:flex;flex-direction:column;gap:36px}
+.badge-row,.badge-foot{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.badge-foot{margin-top:8px;font-size:12px;color:var(--muted)}
+.streak{font-size:12px;font-weight:700}
+.stamps{display:flex;gap:4px}
+.stamp{width:18px;height:18px;border-radius:50%;border:1.5px dashed var(--line);font-size:9px;display:grid;place-items:center;color:var(--muted)}
+.stamp.on{background:var(--accent);border:1.5px solid var(--accent);color:var(--paper)}
+.card-actions{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap}
+.card-actions .used{margin-top:0}
+.mk{border:1px solid var(--line);background:transparent;border-radius:8px;padding:6px 12px;font-size:13px;color:var(--muted)}
+.mk:hover{color:var(--ink);border-color:var(--accent)}
+/* 테스트 */
+.quiz{gap:18px}
+.q-prog{display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.q-prog .meter{flex:1;margin:0}
+.q-q{font-family:var(--display);font-weight:400;font-size:clamp(22px,4vw,30px);line-height:1.3;margin:0;text-wrap:balance}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:block;width:100%;text-align:left;border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:14px 16px;font-size:15px}
+.opt:hover{border-color:var(--accent)}
+.opt.picked{background:var(--accent);color:var(--paper);border-color:var(--accent)}
+.result-top{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center}
+.result-emoji{font-size:64px;line-height:1}
+.result-name{font-family:var(--display);font-size:clamp(28px,5vw,40px);line-height:1.15;margin:2px 0 0}
+.pct{font-family:var(--display);font-size:20px;color:var(--accent)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.fact{background:var(--bg);border-radius:8px;padding:12px 14px;font-size:14px;min-width:0}
+.fact .label{display:block;margin-bottom:4px}
+/* 판정기 */
+textarea{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 14px;resize:vertical;width:100%}
+textarea:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.verdict{gap:12px}
+.v-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.v-score{font-family:var(--display);font-size:56px;line-height:1;font-variant-numeric:tabular-nums}
+.v-score small{font-size:20px;color:var(--muted)}
+.verdict.g-safe-v .v-score{color:var(--safe)}
+.verdict.g-warn-v .v-score{color:var(--warn)}
+.verdict.g-ban-v .v-score{color:var(--ban)}
+.v-quote{font-size:15px;color:var(--muted)}
+/* 롤플레이 */
+.packs{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.pack{text-align:left;border:1px solid var(--line);background:var(--paper);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.pack:hover{border-color:var(--accent)}
+.pack .pe{font-size:30px}
+.pack b{font-size:17px}
+.pack span{font-size:13px;color:var(--muted)}
+.pack .best{font-family:var(--mono);font-size:11px;color:var(--accent)}
+.scene{gap:16px}
+.outcome{border-left:3px solid var(--accent);background:var(--bg);padding:10px 14px;border-radius:0 8px 8px 0;font-size:15px}
+.delta{font-family:var(--mono);font-weight:500}
+.delta.up{color:var(--safe)} .delta.down{color:var(--ban)} .delta.zero{color:var(--muted)}
+/* 모달 */
+.modal{position:fixed;inset:0;background:rgba(10,14,20,.6);display:grid;place-items:center;z-index:20;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.modal[hidden]{display:none!important}
+.modal-box{background:var(--paper);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px;max-width:420px;width:100%;max-height:100%;overflow:auto}
+.modal-box img{width:100%;border-radius:8px;border:1px solid var(--line)}
+a.btn{text-decoration:none;display:inline-block}
 .hook{font-family:var(--display);font-size:clamp(18px,3vw,22px);color:var(--accent);margin:4px 0 6px}
 
 /* 질문 리스트 */
@@ -164,13 +224,6 @@ img{max-width:100%}
 </head>
 <body>
 <div class="wrap">
-  <nav class="modes" aria-label="모드 선택">
-    <button class="mode" data-m="work" aria-pressed="true"><b>회사</b><span>스몰톡 생존</span></button>
-    <button class="mode" data-m="love" aria-pressed="false"><b>연애</b><span>소개팅·썸·데이트</span></button>
-    <button class="mode" data-m="family" aria-pressed="false"><b>가족</b><span>명절·단톡방</span></button>
-    <button class="mode" data-m="politics" aria-pressed="false"><b>🔴 정치</b><span>출입 금지 구역</span></button>
-  </nav>
-
   <header>
     <div class="title">
       <div class="label" id="today">TODAY</div>
@@ -179,12 +232,28 @@ img{max-width:100%}
       <p class="slogan" id="slogan"></p>
     </div>
     <div class="badge" aria-live="polite">
-      <div class="label" id="scoreLabel">오늘의 인싸 점수</div>
+      <div class="badge-row"><span class="label">사회생활 경험치</span><span class="streak">🔥 <b id="streakN">1</b>일 연속 출근</span></div>
       <div class="score" id="score">0</div>
       <div class="rank" id="rank"></div>
       <div class="meter"><i id="meter"></i></div>
+      <div class="badge-foot"><div class="stamps" id="stamps" aria-label="최근 7일 출석"></div><span id="nextLv"></span></div>
     </div>
   </header>
+
+  <nav class="views" aria-label="메뉴">
+    <button class="view-btn" data-v="today">오늘의 주제</button>
+    <button class="view-btn" data-v="test">사회생활 MBTI</button>
+    <button class="view-btn" data-v="check">이 말 해도 돼?</button>
+    <button class="view-btn" data-v="play">상황 롤플레이</button>
+  </nav>
+
+  <div class="view" id="view-today">
+  <nav class="modes" aria-label="모드 선택">
+    <button class="mode" data-m="work" aria-pressed="true"><b>회사</b><span>스몰톡 생존</span></button>
+    <button class="mode" data-m="love" aria-pressed="false"><b>연애</b><span>소개팅·썸·데이트</span></button>
+    <button class="mode" data-m="family" aria-pressed="false"><b>가족</b><span>명절·단톡방</span></button>
+    <button class="mode" data-m="politics" aria-pressed="false"><b>🔴 정치</b><span>출입 금지 구역</span></button>
+  </nav>
 
   <nav class="tabs" id="tabs" aria-label="상황 선택"></nav>
 
@@ -237,9 +306,51 @@ img{max-width:100%}
     </div>
   </div>
 
+  </div>
+
+  <div class="view" id="view-test" hidden>
+    <section>
+      <div class="sec-head"><h2>사회생활 MBTI</h2><span class="note">10문항, 1분이면 끝나요. 결과는 카드로 만들어 공유할 수 있어요.</span></div>
+      <div class="panel quiz" id="quiz"></div>
+    </section>
+  </div>
+
+  <div class="view" id="view-check" hidden>
+    <section>
+      <div class="sec-head"><h2>이 말 해도 돼?</h2><span class="note">하고 싶은 말을 넣으면 지뢰 등급과 대신 할 멘트를 알려줘요.</span></div>
+      <div class="panel">
+        <div class="label">누구한테 할 말이에요?</div>
+        <div class="tabs" id="target">
+          <button class="tab" data-t="boss" aria-pressed="true">👔 상사</button>
+          <button class="tab" data-t="peer" aria-pressed="false">🙋 동료</button>
+          <button class="tab" data-t="date" aria-pressed="false">☕ 소개팅 상대</button>
+          <button class="tab" data-t="family" aria-pressed="false">🍲 친척·어른</button>
+        </div>
+        <label class="label" for="say">하고 싶은 말</label>
+        <textarea id="say" rows="3" placeholder="예: 팀장님 주말에 뭐 하셨어요?"></textarea>
+        <div class="q-btns"><button class="btn" id="judge">판정하기</button><button class="btn ghost" id="sample">다른 예시 넣기</button></div>
+      </div>
+      <div class="panel verdict" id="verdict" aria-live="polite"></div>
+    </section>
+  </div>
+
+  <div class="view" id="view-play" hidden>
+    <section>
+      <div class="sec-head"><h2>상황 롤플레이</h2><span class="note">장면 3개를 버티면 생존률이 나와요. 끝까지 하면 경험치 +5.</span></div>
+      <div id="play"></div>
+    </section>
+  </div>
+
   <footer>사회생활 하기 · 2026년 11월 4일판. 주제는 뉴스와 밈 사전을 기준으로 골랐고, 영상 카드는 각 플랫폼 검색으로 연결돼요. 질문 리스트와 리액션은 매일 바뀌지 않는 고정 콘텐츠예요.</footer>
 </div>
 <div class="toast" id="toast" role="status"></div>
+<div class="modal" id="modal" hidden>
+  <div class="modal-box" role="dialog" aria-modal="true" aria-label="공유 카드">
+    <img id="cardImg" alt="공유용 카드 이미지">
+    <p class="note">휴대폰은 이미지를 길게 눌러 저장하세요.</p>
+    <div class="q-btns"><a class="btn" id="cardSave" download="사회생활하기.png">이미지 저장</a><button class="btn ghost" id="cardClose">닫기</button></div>
+  </div>
+</div>
 
 <script>
 const SRC={
@@ -376,7 +487,8 @@ MODES.politics={
  reactions:[["“아, 그런 시각도 있군요.”","동의도 반대도 아닌 완벽한 중립. 정치편 최강 리액션."],["“제가 그쪽은 잘 몰라서요 ㅎㅎ”","모르는 척은 부끄러운 게 아니라 생존 기술이에요."],["“다들 생각이 다양하네요.”","토론이 과열될 때 한발 물러서며 정리하는 멘트."],["“그나저나…”","화제 전환의 시작을 알리는 마법의 단어. 뒤에 아무 말이나 붙이세요."],["“잠깐 화장실 좀 다녀올게요.”","최후의 수단. 돌아오면 대부분 화제가 바뀌어 있어요."],["“음… (물 마시기)”","말 대신 행동. 물잔이 비면 리필 핑계로 자리 이탈."]]
 };
 const GRADE={safe:["g-safe","🟢 안전"],warn:["g-warn","🟡 주의"],ban:["g-ban","🔴 금지"]};
-const dayKey=new Date().toISOString().slice(0,10);
+const localKey=(d=new Date())=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const dayKey=localKey();
 const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 let mode="work",filter="all",used=new Set(),ri=-1,curQ=null;
 const $=id=>document.getElementById(id);
@@ -391,7 +503,7 @@ function setMode(m){
   if(!MODES[m])m="work";mode=m;filter="all";const M=MODES[m];
   document.body.dataset.mode=m;
   document.querySelectorAll(".mode").forEach(b=>b.setAttribute("aria-pressed",b.dataset.m===m));
-  $("modeTag").textContent=M.tag;$("slogan").innerHTML=M.slogan;$("scoreLabel").textContent=M.scoreLabel;
+  $("modeTag").hidden=false;$("modeTag").textContent=M.tag;$("slogan").innerHTML=M.slogan;
   $("topicsTitle").textContent=M.topicsTitle;$("qTitle").textContent=M.qTitle;
   used=new Set(store.get("sgs-"+m+"-"+dayKey,[]));
   $("tabs").innerHTML=`<button class="tab" data-s="all" aria-pressed="true">전체</button>`+Object.entries(M.sits).map(([k,[n,t]])=>`<button class="tab" data-s="${k}" aria-pressed="false">${n} <small>${t}</small></button>`).join("");
@@ -410,7 +522,7 @@ function renderTopics(){
       <div class="followup"><b>이어가기 →</b> ${x.f}</div>
       ${x.w?`<div class="ban-tip">⚠ ${x.w}</div>`:""}
       ${x.src?`<a class="src" href="${x.src[1]}" target="_blank" rel="noopener">출처 · ${x.src[0]} ↗</a>`:""}
-      ${x.g!=="ban"?`<button class="used${done?" done":""}" data-i="${i}">${done?"✓ 써먹었다 (+3)":"써먹었다"}</button>`:""}</article>`;
+      <div class="card-actions">${x.g!=="ban"?`<button class="used${done?" done":""}" data-i="${i}">${done?"✓ 써먹었다 (+3)":"써먹었다"}</button>`:""}<button class="mk" data-c="${i}">카드로 만들기</button></div></article>`;
   }).join("");
 }
 function renderQs(){
@@ -428,10 +540,26 @@ function renderVideos(){
     <div class="thumb"><span class="plat">${v.p}</span>${v.e}<span class="views">🔥 ${v.v}</span></div>
     <div class="vid-body"><h3>${v.t}</h3><p>💬 ${v.m}</p><span class="go">보러 가기 ↗</span></div></a>`).join("");
 }
+const LV=[[0,"사원증만 걸고 다니는 단계"],[10,"엘리베이터 인사 성공"],[30,"점심 테이블 정착 완료"],[60,"탕비실 토크 지분 보유"],[100,"회식 분위기 메이커"],[200,"사회생활 만렙"]];
+const getXP=()=>store.get("sgs-xp",0);
+function addXP(n){store.set("sgs-xp",Math.max(0,getXP()+n));renderScore()}
+let streak=store.get("sgs-streak",{last:null,count:0,days:[]});
+if(streak.last!==dayKey){
+  const y=localKey(new Date(Date.now()-864e5));
+  streak.count=streak.last===y?streak.count+1:1;streak.last=dayKey;
+  streak.days=[...(streak.days||[]),dayKey].slice(-30);store.set("sgs-streak",streak);
+  store.set("sgs-xp",getXP()+2);
+  setTimeout(()=>toast(streak.count>1?`${streak.count}일 연속 출근 도장! 경험치 +2`:"오늘의 출근 도장 쾅! 경험치 +2"),700);
+}
 function renderScore(){
-  const s=used.size*3,R=MODES[mode].ranks;$("score").textContent=s;
-  let r=R[0][1];R.forEach(([n,l])=>{if(s>=n)r=l});$("rank").textContent=r;
-  $("meter").style.width=Math.min(100,s/15*100)+"%";
+  const s=getXP();$("score").textContent=s;
+  let i=0;LV.forEach((l,k)=>{if(s>=l[0])i=k});$("rank").textContent=LV[i][1];
+  const nx=LV[i+1];$("meter").style.width=nx?((s-LV[i][0])/(nx[0]-LV[i][0])*100)+"%":"100%";
+  $("nextLv").textContent=nx?`다음 단계까지 ${nx[0]-s}점`:"만렙 달성";
+  $("streakN").textContent=streak.count;
+  const W=["일","월","화","수","목","금","토"];let h="";
+  for(let k=6;k>=0;k--){const d=new Date(Date.now()-k*864e5);h+=`<span class="stamp${streak.days.includes(localKey(d))?" on":""}" title="${localKey(d)}">${W[d.getDay()]}</span>`}
+  $("stamps").innerHTML=h;
 }
 function drawReaction(){
   const R=MODES[mode].reactions;let n;do{n=Math.floor(Math.random()*R.length)}while(n===ri&&R.length>1);ri=n;
@@ -440,14 +568,240 @@ function drawReaction(){
 document.querySelectorAll(".mode").forEach(b=>b.addEventListener("click",()=>setMode(b.dataset.m)));
 $("tabs").addEventListener("click",e=>{const t=e.target.closest(".tab");if(!t)return;filter=t.dataset.s;
   document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-pressed",x===t));renderTopics()});
-$("topics").addEventListener("click",e=>{const b=e.target.closest(".used");if(!b)return;const i=+b.dataset.i;
-  used.has(i)?used.delete(i):used.add(i);store.set("sgs-"+mode+"-"+dayKey,[...used]);renderTopics();renderScore()});
+$("topics").addEventListener("click",e=>{
+  const mk=e.target.closest(".mk");
+  if(mk){const x=MODES[mode].topics[+mk.dataset.c];openCard({eyebrow:`${MODES[mode].tag} · ${GRADE[x.g][1]}`,title:x.t,body:x.m,sub:"이어가기 → "+x.f});return}
+  const b=e.target.closest(".used");if(!b)return;const i=+b.dataset.i;
+  if(used.has(i)){used.delete(i);addXP(-3)}else{used.add(i);addXP(3);toast("경험치 +3")}
+  store.set("sgs-"+mode+"-"+dayKey,[...used]);renderTopics()});
 $("qGroups").addEventListener("click",e=>{const b=e.target.closest("button[data-q]");if(b)copy(b.dataset.q)});
 $("qDraw").addEventListener("click",drawQ);
 $("qCopy").addEventListener("click",()=>curQ&&copy(curQ[1]));
 $("draw").addEventListener("click",drawReaction);
-window.addEventListener("hashchange",()=>{const h=location.hash.slice(1);if(h!==mode&&MODES[h])setMode(h)});
-setMode(location.hash.slice(1)||"work");
+/* ===== 공유 카드 ===== */
+const CARD_ACCENT={work:"#2f5bd3",love:"#d6336c",family:"#2b8a6e",politics:"#e01e1e"};
+function wrapText(x,text,maxW){
+  const out=[];String(text).split("\n").forEach(par=>{
+    let line="";for(const w of par.split(" ")){
+      const t=line?line+" "+w:w;
+      if(x.measureText(t).width<=maxW){line=t;continue}
+      if(line)out.push(line);line="";
+      let chunk="";for(const ch of w){if(x.measureText(chunk+ch).width>maxW){out.push(chunk);chunk=ch}else chunk+=ch}
+      line=chunk;
+    }
+    if(line)out.push(line);
+  });return out;
+}
+async function openCard(c){
+  const DF='"Black Han Sans","Apple SD Gothic Neo","Malgun Gothic",sans-serif',BF='"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif';
+  try{await Promise.all([document.fonts.load('80px "Black Han Sans"'),document.fonts.load('500 40px "IBM Plex Sans KR"')])}catch(e){}
+  const cv=document.createElement("canvas");cv.width=1080;cv.height=1350;const x=cv.getContext("2d");
+  const ac=c.accent||CARD_ACCENT[document.body.dataset.mode]||CARD_ACCENT.work;
+  x.fillStyle="#eef1f4";x.fillRect(0,0,1080,1350);
+  x.fillStyle="#ffffff";x.beginPath();x.roundRect?x.roundRect(60,60,960,1230,40):x.rect(60,60,960,1230);x.fill();
+  x.fillStyle=ac;x.fillRect(60,60,960,18);
+  let y=170;x.textBaseline="alphabetic";
+  x.fillStyle="#5d6878";x.font=`500 34px ${BF}`;x.fillText(c.eyebrow||"",120,y);y+=40;
+  if(c.emoji){x.font=`150px ${BF}`;x.fillText(c.emoji,112,y+150);y+=200}else y+=40;
+  x.font=`88px ${DF}`;const tl=wrapText(x,c.title,840);
+  tl.forEach(l=>{y+=104;const w=x.measureText(l).width;x.fillStyle="#fff36b";x.fillRect(116,y-34,w+8,34);x.fillStyle="#1d2430";x.fillText(l,120,y)});
+  y+=70;x.font=`500 44px ${BF}`;x.fillStyle="#1d2430";
+  wrapText(x,c.body||"",840).slice(0,7).forEach(l=>{y+=64;x.fillText(l,120,y)});
+  if(c.sub){y+=40;x.font=`40px ${BF}`;x.fillStyle=ac;wrapText(x,c.sub,840).slice(0,4).forEach(l=>{y+=58;x.fillText(l,120,y)})}
+  x.fillStyle="#d5dbe3";x.fillRect(120,1150,840,2);
+  x.fillStyle="#1d2430";x.font=`44px ${DF}`;x.fillText("사회생활 하기",120,1215);
+  x.fillStyle="#5d6878";x.font=`500 30px ${BF}`;x.textAlign="right";x.fillText("인싸 될래, 아싸 될래? · @ttanjit.lab",960,1213);x.textAlign="left";
+  const url=cv.toDataURL("image/png");$("cardImg").src=url;$("cardSave").href=url;
+  $("modal").hidden=false;$("cardClose").focus();
+}
+$("cardClose").addEventListener("click",()=>$("modal").hidden=true);
+$("modal").addEventListener("click",e=>{if(e.target.id==="modal")$("modal").hidden=true});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")$("modal").hidden=true});
+
+/* ===== 사회생활 MBTI ===== */
+const TYPES={
+ S:{e:"🛗",n:"엘리베이터 침묵형",d:"층수 버튼이 세상에서 제일 흥미로운 사람. 실수는 없지만 기억에도 없어요.",good:"말실수 제로. 지뢰를 밟을 일이 없어요.",tip:"하루 한 번, 날씨 얘기 한 마디부터 시작해 보세요.",m:"R"},
+ R:{e:"👏",n:"리액션 국가대표",d:"말은 적어도 리액션은 국가대표. “헐 진짜요?” 하나로 하루를 버텨요.",good:"누구와도 무난하게 지내요. 다들 당신 앞에서 말이 많아져요.",tip:"리액션 뒤에 질문 하나만 얹으면 대화를 주도할 수 있어요.",m:"M"},
+ H:{e:"🍱",n:"점심 혼밥 수호자",d:"점심시간은 나만의 충전 시간. 이어폰은 출근 필수템이에요.",good:"에너지 관리 능력 최상. 오후에도 멀쩡해요.",tip:"일주일에 딱 한 번만 같이 먹어도 평판이 확 달라져요.",m:"K"},
+ K:{e:"💬",n:"이모티콘 소통러",d:"온라인 인싸, 오프라인 아싸. 단톡방에선 제일 활발한데 엘리베이터에선 조용해요.",good:"분위기 파악이 빠르고 답장이 칼같아요.",tip:"이모티콘 하나를 오늘은 말로 바꿔보세요. “아까 그거 웃겼어요!”",m:"H"},
+ I:{e:"☕",n:"탕비실 정보통",d:"회사 소식은 나를 거쳐 가요. 커피 한 잔에 사내 뉴스 세 개.",good:"인맥 부자. 누구에게 물어봐야 하는지 다 알아요.",tip:"🔴 주제(뒷담, 연봉)만 조심하면 무적이에요.",m:"S"},
+ M:{e:"🎤",n:"회식 분위기 메이커",d:"2차 노래방 선곡은 이미 끝났어요. 정적을 참지 못하는 타입.",good:"어색한 자리를 살리는 사람. 신입들이 제일 고마워해요.",tip:"가끔은 조용한 동료에게 마이크를 넘겨주세요.",m:"R"}
+};
+const INSSA={S:0,H:1,K:1.5,R:1.5,I:2.5,M:3};
+const QUIZ=[
+ {q:"엘리베이터에 팀장님과 단둘이 탔다.",o:[["층수 버튼을 뚫어지게 본다","S"],["눈이 마주치면 웃으며 목례","R"],["“팀장님 어제 야구 보셨어요?”","I"],["내리고 나서 메신저로 “아까 반가웠어요 ㅎㅎ”","K"]]},
+ {q:"점심시간 12시 땡!",o:[["이어폰 끼고 혼밥 맛집으로","H"],["팀 단톡에 “오늘 뭐 먹어요?” 먼저 투척","I"],["누가 가자고 하면 따라간다","R"],["새로 생긴 맛집 원정대를 모집한다","M"]]},
+ {q:"회식 1차가 끝나고 “2차 가자!”",o:[["막차 핑계로 조용히 퇴장","S"],["노래방 선곡 리스트 이미 준비 완료","M"],["끝까지 남아 박수와 탬버린 담당","R"],["단톡방에 오늘 사진 정리해서 올린다","K"]]},
+ {q:"탕비실에서 옆팀 사람을 만났다.",o:[["커피가 나오는 동안 벽을 응시","S"],["요즘 그 팀 무슨 일 하는지 묻는다","I"],["“아 네네 ㅎㅎ” 미소로 대응","R"],["텀블러에 담아 바로 자리로 복귀","H"]]},
+ {q:"팀 단톡방에 팀장님 공지가 올라왔다.",o:[["귀여운 이모티콘으로 바로 반응","K"],["“넵!” 1초 컷","R"],["읽고 조용히 할 일을 한다","S"],["관련 정보를 한 줄 덧붙인다","I"]]},
+ {q:"월요일 아침 “주말에 뭐 했어요?”",o:[["“그냥 집에 있었어요”","S"],["주말 썰을 10분 동안 푼다","M"],["“○○님은요?” 질문을 돌려준다","R"],["혼자 다녀온 전시 얘기를 짧게","H"]]},
+ {q:"우리 팀에 신입이 들어왔다.",o:[["회사 생존 꿀팁을 전수한다","I"],["환영 점심을 추진한다","M"],["메신저로 “궁금한 거 있으면 물어보세요!”","K"],["눈인사로 조용히 환영","S"]]},
+ {q:"오늘은 동료 생일.",o:[["케이크 서프라이즈를 기획한다","M"],["기프티콘을 보낸다","K"],["축하 노래에 박수로 참여","R"],["다 같이 사는 거면 조용히 입금","H"]]},
+ {q:"회의 중 아무도 말을 안 한다.",o:[["나도 같이 침묵","S"],["열심히 고개를 끄덕인다","R"],["“그 건은 옆팀에서도 비슷한 얘기가…”","I"],["가벼운 농담으로 분위기를 푼다","M"]]},
+ {q:"퇴근 후 회사 사람에게 연락이 왔다.",o:[["이모티콘으로 빠르게 답장","K"],["내일 출근해서 답한다","S"],["퇴근 후엔 무음. 나만의 시간","H"],["궁금하니까 바로 전화","I"]]}
+];
+let qi=0,ans=[];
+function renderQuiz(){
+  if(qi>=QUIZ.length)return renderResult();
+  const Q=QUIZ[qi];
+  $("quiz").innerHTML=`<div class="q-prog"><span>${qi+1} / ${QUIZ.length}</span><div class="meter"><i style="width:${qi/QUIZ.length*100}%"></i></div></div>
+   <h3 class="q-q">${Q.q}</h3><div class="opts">${Q.o.map((o,k)=>`<button class="opt${ans[qi]===o[1]&&ans._k&&ans._k[qi]===k?" picked":""}" data-k="${k}">${o[0]}</button>`).join("")}</div>
+   ${qi?`<div><button class="btn ghost" id="qBack">이전 문항</button></div>`:""}`;
+}
+function calcResult(a){
+  const c={};a.forEach(t=>c[t]=(c[t]||0)+1);
+  const top=Object.keys(TYPES).sort((p,q)=>(c[q]||0)-(c[p]||0))[0];
+  const pct=Math.round(a.reduce((s,t)=>s+INSSA[t],0)/(3*a.length)*100);
+  return{top,pct};
+}
+function renderResult(){
+  const {top,pct}=calcResult(ans),T=TYPES[top],M=TYPES[T.m];
+  store.set("sgs-test",{top,pct});
+  if(store.get("sgs-test-day","")!==dayKey){store.set("sgs-test-day",dayKey);addXP(5);toast("테스트 완료! 경험치 +5")}
+  const verdict=pct>=60?"인싸 쪽":pct>=35?"반반 하이브리드":"아싸 쪽";
+  $("quiz").innerHTML=`<div class="label">나의 사회생활 유형</div>
+   <div class="result-top"><div class="result-emoji">${T.e}</div><div><div class="pct">인싸력 ${pct}% · ${verdict}</div><h3 class="result-name">${T.n}</h3></div></div>
+   <p style="margin:0;font-size:16px">${T.d}</p>
+   <div class="facts"><div class="fact"><span class="label">강점</span>${T.good}</div><div class="fact"><span class="label">생존 팁</span>${T.tip}</div><div class="fact"><span class="label">찰떡 궁합</span>${M.e} ${M.n}</div></div>
+   <div class="q-btns"><button class="btn" id="tCard">결과 카드 만들기</button><button class="btn ghost" id="tRetry">다시 하기</button></div>`;
+}
+$("quiz").addEventListener("click",e=>{
+  const o=e.target.closest(".opt");
+  if(o){const k=+o.dataset.k;ans[qi]=QUIZ[qi].o[k][1];(ans._k=ans._k||[])[qi]=k;o.classList.add("picked");setTimeout(()=>{qi++;renderQuiz()},180);return}
+  if(e.target.id==="qBack"){qi--;renderQuiz();return}
+  if(e.target.id==="tRetry"){qi=0;ans=[];renderQuiz();return}
+  if(e.target.id==="tCard"){const r=store.get("sgs-test",calcResult(ans)),T=TYPES[r.top];
+    openCard({eyebrow:"나의 사회생활 유형",emoji:T.e,title:T.n,body:T.d,sub:`인싸력 ${r.pct}% · 찰떡 궁합 ${TYPES[T.m].n}`,accent:"#2f5bd3"})}
+});
+
+/* ===== 이 말 해도 돼? ===== */
+const RULES=[
+ {g:"ban",re:/정치|대통령|선거|정당|국회|투표|진보|보수|여당|야당/,why:"정치 얘기는 회사, 명절, 소개팅 어디서든 금지예요.",alt:"요즘 뉴스가 너무 많아서 머리 아프네요 ㅎㅎ"},
+ {g:"ban",re:/종교|교회|성당|절에 |하나님|신앙|기도/,why:"종교는 상대가 먼저 꺼내기 전엔 묻지 않는 게 예의예요.",alt:"주말엔 주로 뭐 하면서 보내세요?"},
+ {g:"ban",re:/연봉|월급 ?얼마|얼마 ?받|성과급 ?얼마|돈 ?얼마/,why:"남의 연봉 얘기는 분위기를 바로 얼려요.",alt:"연말정산 미리 챙기세요? 저는 작년에 토해냈어요 ㅠ"},
+ {g:"ban",re:/전 ?(애인|남친|여친|남자 ?친구|여자 ?친구)|헤어진 ?이유|왜 ?헤어/,why:"전 애인 얘기는 상대가 먼저 꺼내도 깊게 파지 않기.",alt:"연애할 때 제일 중요하게 생각하는 게 뭐예요?"},
+ {g:"ban",re:/결혼 ?(은|언제|안 ?해|계획|할 ?거)|왜 ?결혼|애인 ?있|솔로|연애 ?(안|왜)/,why:"결혼과 연애 재촉은 명절 잔소리 1위예요.",alt:"요즘 제일 재밌는 게 뭐예요?"},
+ {g:"ban",re:/둘째|애 ?(는|언제|안 ?낳)|아이 ?(는 ?언제|계획)|임신/,why:"출산 계획은 아주 사적인 영역이에요.",alt:"요즘 주말엔 어디 가세요?"},
+ {g:"ban",re:/살 ?(빠|찌|쪘)|뚱|외모|못생|성형|얼굴이|피부가|늙어|키가 ?작/,why:"외모 평가는 칭찬이라도 듣는 사람은 불편할 수 있어요.",alt:"그 니트 색 예쁘네요, 어디서 사셨어요?"},
+ {g:"ban",re:/뒷담|험담|(팀장|부장|상무|사장|실장)님?.{0,6}(별로|싫|이상|어때|짜증)|(그 ?사람|걔).{0,4}(별로|싫|이상|짜증)/,why:"뒷담은 돌고 돌아 결국 내게 돌아와요.",alt:"요즘 팀 일 많죠? 다들 고생이네요"},
+ {g:"ban",re:/몇 ?점|점수|등급 ?(나|어때)|어느 ?대학 ?(붙|갔|가)/,why:"성적과 입시 결과는 묻지 않는 게 예의예요.",alt:"끝나면 제일 하고 싶은 거 뭐야?"},
+ {g:"warn",re:/몇 ?살|나이|몇 ?년생|학번/,why:"나이는 호칭 정리용으로만, 꼭 필요할 때 조심스럽게.",alt:"편하게 부르고 싶은데, 어떻게 불러드리면 될까요?"},
+ {g:"warn",re:/이직|퇴사|그만 ?둘|면접/,why:"이직 얘기는 소문이 빨라요. 친한 사이에서만.",alt:"요즘 일하면서 제일 재밌는 게 뭐예요?"},
+ {g:"warn",re:/집 ?값|자가|전세|월세|아파트|부동산|청약|어디 ?살/,why:"부동산은 상대 상황에 따라 민감할 수 있어요.",alt:"출퇴근 몇 분 걸리세요?"},
+ {g:"warn",re:/mbti|엠비티아이/i,why:"대화 물꼬로는 좋지만, 사람을 단정 짓는 데 쓰면 역효과예요.",alt:"계획파예요, 즉흥파예요?"},
+ {g:"warn",re:/건강|아프|병원|수술|약 ?드|약 ?먹/,why:"걱정으로 들리면 좋지만, 캐물으면 부담돼요.",alt:"요즘 컨디션은 괜찮으세요?"},
+ {g:"warn",re:/육아|어린이집|학원|애들 ?교육/,why:"육아 방식은 조언이 잔소리로 바뀌기 쉬워요.",alt:"요즘 아이랑 주말에 어디 가세요?"},
+ {g:"safe",re:/날씨|비가|비 ?와|비 ?온|추워|추위|더워|눈 ?오|패딩|우산/,why:"날씨는 사회생활의 영원한 1번 주제예요.",boost:"“금요일부터 더 추워진대요”처럼 정보 하나를 붙이면 대화가 이어져요."},
+ {g:"safe",re:/점심|저녁|맛집|먹|커피|메뉴|빵|붕어빵|회크닉|빼빼로/,why:"음식 얘기는 실패 확률 0%예요.",boost:"“어디예요? 다음에 같이 가요”로 마무리하면 약속까지 생겨요."},
+ {g:"safe",re:/주말|휴가|여행|연휴|단풍/,why:"주말과 여행은 누구나 할 말이 있는 주제예요.",boost:"내 얘기 한 줄에 “○○님은요?” 되묻기가 황금 비율이에요."},
+ {g:"safe",re:/넷플|드라마|영화|예능|유튜브|야구|축구|한국시리즈|노래/,why:"콘텐츠 얘기는 취향 공유의 지름길이에요.",boost:"응원팀이나 최애가 있는지부터 확인하면 완벽해요."},
+ {g:"safe",re:/강아지|고양이|반려|댕댕|냥/,why:"동물 얘기는 모두를 무장해제시켜요.",boost:"“사진 있어요?” 한 마디면 10분 순삭이에요."}
+];
+const TARGET={boss:["상사","상사에겐 질문보다 리액션이 안전해요. 사생활 질문은 한 개까지만."],peer:["동료","동료와는 공감 한 줄이 최고의 무기예요."],date:["소개팅 상대","첫 만남엔 질문 반, 내 얘기 반이 황금 비율이에요."],family:["친척·어른","어르신과는 음식, 건강, 옛날 얘기가 제일 안전해요."]};
+const SAMPLES=[["boss","팀장님 주말에 뭐 하셨어요?"],["peer","연봉 얼마 받으세요?"],["date","MBTI 뭐예요?"],["family","둘째는 언제 낳을 거예요?"],["peer","어제 한국시리즈 보셨어요?"],["boss","부장님 요즘 살 빠지셨어요?"],["date","전 여친이랑 왜 헤어졌어요?"],["family","김장 언제 해요? 저도 도울게요"],["peer","요즘 이직 준비해?"]];
+let tgt="boss",si=0;
+function hash(s){let h=0;for(const c of s)h=(h*31+c.charCodeAt(0))>>>0;return h}
+function judge(){
+  const t=$("say").value.trim();const V=$("verdict");
+  if(!t){V.className="panel verdict";V.innerHTML=`<p class="note" style="margin:0">하고 싶은 말을 먼저 적어 주세요.</p>`;return}
+  const hits=RULES.filter(r=>r.re.test(t));const order={ban:0,warn:1,safe:2};
+  hits.sort((a,b)=>order[a.g]-order[b.g]);const r=hits[0];
+  const g=r?r.g:"safe",h=hash(t+tgt);
+  const score=g==="ban"?8+h%20:g==="warn"?48+h%18:(r?86+h%13:72+h%10);
+  const why=r?r.why:"특별한 지뢰는 안 보여요. 무난한 한 마디예요.";
+  const extra=r&&r.alt?`<div class="script"><span class="label">대신 이렇게</span>${r.alt}</div>`:`<div class="script"><span class="label">한 끗 더</span>${r&&r.boost?r.boost:"끝에 질문 하나를 붙이면 대화가 이어져요."}</div>`;
+  V.className="panel verdict g-"+g+"-v";
+  V.innerHTML=`<div class="v-head"><div class="v-score">${score}<small>점</small></div><span class="grade ${GRADE[g][0]}">${GRADE[g][1]}</span></div>
+   <div class="v-quote">${TARGET[tgt][0]}에게 “${t.replace(/</g,"&lt;")}”</div>
+   <p style="margin:0">${why}</p>${extra}
+   <p class="note" style="margin:0">💡 ${TARGET[tgt][1]}</p>
+   <div><button class="btn ghost" id="vCard">판정 카드 만들기</button></div>`;
+  V._last={t,g,score,why,alt:r&&r.alt};
+}
+$("target").addEventListener("click",e=>{const b=e.target.closest(".tab");if(!b)return;tgt=b.dataset.t;
+  document.querySelectorAll("#target .tab").forEach(x=>x.setAttribute("aria-pressed",x===b));if($("say").value.trim())judge()});
+$("judge").addEventListener("click",()=>{judge();if($("say").value.trim())addXP(1)});
+$("say").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey&&!e.isComposing){e.preventDefault();judge()}});
+function loadSample(){const [t,s]=SAMPLES[si++%SAMPLES.length];tgt=t;$("say").value=s;
+  document.querySelectorAll("#target .tab").forEach(x=>x.setAttribute("aria-pressed",x.dataset.t===t));judge()}
+$("sample").addEventListener("click",loadSample);
+$("verdict").addEventListener("click",e=>{if(e.target.id!=="vCard")return;const L=$("verdict")._last;
+  openCard({eyebrow:`이 말 해도 돼? · ${GRADE[L.g][1]} ${L.score}점`,title:`“${L.t}”`,body:L.why,sub:L.alt?"대신 → "+L.alt:"",accent:L.g==="ban"?"#d23c3c":L.g==="warn"?"#c98a00":"#1f9d62"})});
+
+/* ===== 상황 롤플레이 ===== */
+const PACKS=[
+ {id:"dinner",e:"🍻",n:"회식 생존",d:"부장님 썰부터 2차 노래방까지",s:[
+  {t:"부장님이 잔을 내려놓으며 “요즘 젊은 애들은 말이야~”를 시작했다.",o:[["“부장님 신입 때는 어떠셨어요?”",10,"부장님 썰 풀기 모드 진입. 30분 듣기만 하면 호감도 MAX."],["고개만 끄덕끄덕",0,"무난하게 생존. 존재감도 같이 사라졌어요."],["“그건 세대 차이죠”",-10,"정적 3초. 옆자리 대리님이 조용히 물을 따라줘요."]]},
+  {t:"1차가 끝나자 “2차 노래방 가자!” 분위기가 됐다.",o:[["“저 내일 아침 일정이 있어서 1차까지만 할게요! 즐거웠어요”",10,"요즘은 이게 국룰. 아무도 서운해하지 않아요."],["따라가서 탬버린 담당",0,"체력 -50, 호감도 +10. 내일 아침이 걱정돼요."],["인사 없이 몰래 사라진다",-10,"다음 날 “어제 어디 갔어?” 질문을 다섯 번 받아요."]]},
+  {t:"과장님이 계속 술을 권한다. 오늘은 더 마시면 안 될 것 같다.",o:[["“오늘은 음료로 할게요. 대신 건배사는 제가 할게요!”",10,"건배사로 분위기를 살려서 아무도 술 얘기를 안 해요."],["잔만 들고 마시는 척",0,"들키지 않았지만 잔이 계속 채워져요."],["억지로 다 마신다",-10,"내일의 내가 오늘의 나를 원망해요."]]}]},
+ {id:"rookie",e:"🐣",n:"신입 첫날",d:"자기소개부터 첫 점심까지",s:[
+  {t:"팀장님이 “간단하게 자기소개 해볼까요?”라고 했다.",o:[["이름, 맡을 일, 취미 하나를 30초 안에",10,"“취미가 등산이에요?” 바로 대화가 생겼어요."],["“잘 부탁드립니다…”로 끝",0,"무난하지만 이름을 기억하는 사람이 없어요."],["학창 시절부터 3분 동안 TMI",-10,"팀장님이 시계를 보기 시작했어요."]]},
+  {t:"12시가 됐는데 아무도 점심 같이 가자고 하지 않는다.",o:[["옆자리 선배에게 “혹시 점심 같이 가도 될까요?”",10,"“아 맞다! 같이 가요” 다들 깜빡했던 거예요."],["편의점에서 혼밥",0,"평화롭지만 팀 맛집 정보는 못 얻었어요."],["점심을 굶고 자리를 지킨다",-10,"오후 3시, 배에서 천둥소리가 나요."]]},
+  {t:"모르는 업무가 생겼다. 다들 바빠 보인다.",o:[["메모해 뒀다가 시간 될 때 한 번에 질문",10,"“정리 잘했네요” 칭찬까지 받았어요."],["5분마다 질문",0,"답은 얻었지만 선배 표정이 점점 굳어요."],["혼자 3시간 끙끙",-10,"결국 처음부터 다시 해야 했어요."]]}]},
+ {id:"return",e:"👶",n:"육아휴직 복귀",d:"오랜만의 출근, 달라진 회사",s:[
+  {t:"복귀 첫날, 동료가 “와 오랜만이다! 애기는 잘 커?”",o:[["“덕분에요! 이제 걸어 다녀요 ㅎㅎ 그동안 팀은 별일 없었어요?”",10,"자연스럽게 밀린 소식까지 다 들었어요."],["아기 사진 50장 공개",0,"귀여움은 인정. 대신 20분이 순삭됐어요."],["“네…” 하고 자리로",-10,"대화 종료. 동료가 머쓱해졌어요."]]},
+  {t:"내가 없는 동안 결재 시스템이 바뀌었다.",o:[["“제가 없는 동안 바뀐 거 한 번만 알려주실 수 있을까요?”",10,"5분 만에 정리 끝. 다들 기꺼이 도와줘요."],["몰래 검색하며 혼자 해결",0,"해결은 했지만 반나절이 갔어요."],["아는 척하고 넘어간다",-10,"결재가 반려돼서 두 번 일했어요."]]},
+  {t:"어린이집 하원 때문에 4시 반에는 나가야 한다.",o:[["아침에 “4시 반까지 하고 나머지는 저녁에 확인할게요” 미리 공유",10,"다들 그 시간을 피해서 회의를 잡아줘요."],["“죄송합니다” 열 번 하고 퇴근",0,"퇴근은 했지만 마음이 무거워요."],["눈치 보며 몰래 나간다",-10,"다음 날 “어제 일찍 갔어?” 질문을 받아요."]]}]},
+ {id:"move",e:"🧳",n:"이직 첫날",d:"새 회사, 새 사람, 전 회사 얘기 금지",s:[
+  {t:"점심 자리에서 “전 회사는 어땠어요?”",o:[["“배운 것도 많았는데 여기서 해보고 싶은 게 있어서 왔어요”",10,"깔끔한 답변. 다들 고개를 끄덕여요."],["“그냥 그랬어요”",0,"무난하지만 대화가 끊겼어요."],["전 회사 험담 10분",-10,"소문은 빛보다 빨라요. 다음 주엔 옆팀도 알아요."]]},
+  {t:"회의 중에 “전 회사에선 이렇게 했는데…”가 목까지 차올랐다.",o:[["“여기선 보통 어떻게 하세요?” 먼저 묻기",10,"맥락을 듣고 나니 제안도 더 잘 먹혀요."],["참고 혼자 투덜",0,"평화는 지켰지만 좋은 아이디어도 묻혔어요."],["“전 회사에선요~” 세 번 연속",-10,"누군가 “그럼 거기 계시지…”라고 속으로 생각해요."]]},
+  {t:"팀 메신저방에 처음 초대됐다.",o:[["짧은 인사와 함께 “간식 탕비실에 두었어요!”",10,"이모티콘 반응 12개. 첫인상 성공."],["이모티콘만 하나 보낸다",0,"귀엽긴 한데 누군지 아무도 몰라요."],["A4 한 장 분량의 자기소개",-10,"읽씹 12명. 스크롤 압박이 컸어요."]]}]},
+ {id:"holiday",e:"🍲",n:"명절 생존",d:"잔소리, 비교, 그리고 정치 토론",s:[
+  {t:"큰엄마가 전을 부치다 “결혼은 언제 하니? 둘째는?”",o:[["“때 되면 알아서 잘할게요! 큰엄마 이 전 진짜 맛있어요”",10,"음식 칭찬에 큰엄마가 레시피 설명 모드로 전환."],["웃기만 한다",0,"질문이 세 번 더 돌아와요."],["“큰엄마는 그걸 왜 물어보세요?”",-10,"명절 3차 대전 발발."]]},
+  {t:"고모가 “누구는 대기업 갔다던데~” 사촌 비교를 시작했다.",o:[["“와 축하할 일이네요! 저도 열심히 할게요”",10,"비교 공격이 축하 분위기로 바뀌었어요."],["화장실로 피신",0,"일시적 생존. 돌아오면 2라운드."],["“그 집은 그 집이고요”",-10,"분위기가 얼어붙고 엄마가 눈치를 줘요."]]},
+  {t:"삼촌과 큰아버지의 정치 토론이 시작됐다.",o:[["“제가 과일 깎아 올게요!”",10,"과일과 함께 화제가 바뀌었어요. 명절 MVP."],["TV 리모컨을 열심히 누른다",0,"채널은 바뀌었는데 토론은 계속돼요."],["한쪽 편을 든다",-10,"다음 명절까지 소환될 예정이에요."]]}]},
+ {id:"blind",e:"☕",n:"소개팅",d:"첫 3초부터 계산까지",s:[
+  {t:"자리에 앉았다. 3초간 정적.",o:[["“여기 찾기 어렵진 않으셨어요?”",10,"부드러운 출발. 상대도 웃으며 대답해요."],["메뉴판을 정독한다",0,"메뉴는 다 외웠는데 대화는 시작 못 했어요."],["“사진이랑 좀 다르시네요?”",-10,"…그 의미는 영원히 미스터리로 남았어요."]]},
+  {t:"상대가 “주말엔 보통 뭐 하세요?”라고 물었다.",o:[["취미 하나를 말하고 “○○님은요?” 되묻기",10,"공통 취미 발견! 대화가 술술 풀려요."],["“그냥 집에 있어요”",0,"솔직하지만 대화가 다시 멈췄어요."],["취미 강의 30분",-10,"상대의 커피가 다 식었어요."]]},
+  {t:"계산할 시간이다.",o:[["“오늘은 제가 살게요. 다음엔 맛있는 거 사주세요!”",10,"자연스럽게 애프터 약속이 생겼어요."],["정확히 반 나눠 송금",0,"깔끔하지만 다음 약속은 미정이에요."],["화장실 가서 안 나온다",-10,"연락이 끊겼어요."]]}]}
+];
+let pk=null,sc=0,ps=0,picked=null;
+function renderPlay(){
+  const P=$("play");
+  if(!pk){const best=store.get("sgs-play",{});
+    P.innerHTML=`<div class="packs">${PACKS.map(p=>`<button class="pack" data-p="${p.id}"><span class="pe">${p.e}</span><b>${p.n}</b><span>${p.d}</span>${best[p.id]!=null?`<span class="best">최고 생존률 ${best[p.id]}%</span>`:""}</button>`).join("")}</div>`;return}
+  const K=PACKS.find(p=>p.id===pk);
+  if(sc>=K.s.length){
+    const pct=Math.round((ps+30)/60*100);const best=store.get("sgs-play",{});
+    if(best[pk]==null||pct>best[pk]){best[pk]=pct;store.set("sgs-play",best)}
+    const msg=pct>=100?"사회생활 만렙. 이 상황, 당신이 이겼어요.":pct>=67?"무사 생환. 내일도 출근 가능해요.":pct>=34?"간신히 생존. 집에 가서 이불킥 1회.":"장렬히 전사. 다시 도전해 보세요.";
+    P.innerHTML=`<div class="panel scene"><div class="label">${K.e} ${K.n} · 결과</div><div class="v-score">${pct}<small>% 생존</small></div><h3 class="q-q">${msg}</h3>
+     <div class="q-btns"><button class="btn" id="pCard">결과 카드 만들기</button><button class="btn ghost" id="pRetry">다시 하기</button><button class="btn ghost" id="pList">다른 상황 고르기</button></div></div>`;
+    P._res={K,pct,msg};return}
+  const S=K.s[sc];
+  P.innerHTML=`<div class="panel scene"><div class="q-prog"><span>${K.e} ${K.n} · 장면 ${sc+1} / ${K.s.length}</span><div class="meter"><i style="width:${sc/K.s.length*100}%"></i></div></div>
+   <h3 class="q-q">${S.t}</h3>
+   <div class="opts">${S.o.map((o,k)=>`<button class="opt${picked===k?" picked":""}" data-k="${k}" ${picked!=null?"disabled":""}>${o[0]}</button>`).join("")}</div>
+   ${picked!=null?`<div class="outcome"><span class="delta ${S.o[picked][1]>0?"up":S.o[picked][1]<0?"down":"zero"}">${S.o[picked][1]>0?"+":""}${S.o[picked][1]}</span> ${S.o[picked][2]}</div><div><button class="btn" id="pNext">${sc+1<K.s.length?"다음 장면":"결과 보기"}</button></div>`:""}
+   <div><button class="btn ghost" id="pList">상황 목록으로</button></div></div>`;
+}
+$("play").addEventListener("click",e=>{
+  const p=e.target.closest(".pack");if(p){pk=p.dataset.p;sc=0;ps=0;picked=null;renderPlay();return}
+  const o=e.target.closest(".opt");if(o&&picked==null){picked=+o.dataset.k;ps+=PACKS.find(x=>x.id===pk).s[sc].o[picked][1];renderPlay();return}
+  const id=e.target.id;
+  if(id==="pNext"){sc++;picked=null;if(sc>=PACKS.find(x=>x.id===pk).s.length){addXP(5);toast("롤플레이 완료! 경험치 +5")}renderPlay()}
+  if(id==="pRetry"){sc=0;ps=0;picked=null;renderPlay()}
+  if(id==="pList"){pk=null;picked=null;renderPlay()}
+  if(id==="pCard"){const R=$("play")._res;openCard({eyebrow:`상황 롤플레이 · ${R.K.n}`,emoji:R.K.e,title:`생존률 ${R.pct}%`,body:R.msg,sub:"너도 버틸 수 있을까? 사회생활 하기에서 도전",accent:"#2f5bd3"})}
+});
+
+/* ===== 화면 전환 ===== */
+const VIEWS=["today","test","check","play"];
+function showView(v){
+  VIEWS.forEach(n=>$("view-"+n).hidden=n!==v);
+  document.querySelectorAll(".view-btn").forEach(b=>b.dataset.v===v?b.setAttribute("aria-current","page"):b.removeAttribute("aria-current"));
+  if(v==="today"){setMode(mode);return}
+  document.body.dataset.mode="work";$("modeTag").hidden=true;$("slogan").innerHTML="<b>버텨야지, 먹고살려면.</b> 아싸를 위한 사회생활 생존 키트";
+  if(v==="test"&&!$("quiz").innerHTML)renderQuiz();
+  if(v==="check"&&!$("say").value)loadSample();
+  if(v==="play")renderPlay();
+  if(location.hash.slice(1)!==v)history.replaceState(null,"","#"+v);
+}
+document.querySelectorAll(".view-btn").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.v)));
+function route(){const h=location.hash.slice(1);if(MODES[h]){mode=h;showView("today")}else if(VIEWS.includes(h)&&h!=="today")showView(h);else showView("today")}
+window.addEventListener("hashchange",()=>{const h=location.hash.slice(1);if((MODES[h]&&(h!==mode||$("view-today").hidden))||(VIEWS.includes(h)&&$("view-"+h).hidden))route()});
+route();
+renderScore();
 </script>
 </body>
 </html>
