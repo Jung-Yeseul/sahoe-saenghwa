@@ -9,6 +9,7 @@ const tt=q=>"https://www.tiktok.com/search?q="+encodeURIComponent(q);
 const S={
  wx:["디지털타임스 11/5","https://www.dt.co.kr/article/12093528"],
  wx2:["서울신문 11/6","https://www.seoul.co.kr/news/society/2026/11/06/20261106012005"],
+ wx3:["경향신문 11/6","https://www.khan.co.kr/article/202611060720011/"],
  ks:["스포츠경향 11/5","https://sports.khan.co.kr/article/202611051232003/"],
  nf:["넷플릭스","https://about.netflix.com/ko/news/possible-love-premieres-november-6"],
  nf2:["에스콰이어 11/2","https://www.esquirekorea.co.kr/article/1912427"],
@@ -22,7 +23,7 @@ window.TODAY={
  modes:{
  work:{
   topics:[
-   {s:["elev","lunch"],g:"safe",t:"내일 입동, 서울 아침 영하 1도",d:"오늘부터 기온이 5도 안팎 떨어지고 바람이 세요. 토요일 입동엔 서울 아침 -1도, 체감 -3도까지.",m:"내일 입동이라 영하로 떨어진대요. 패딩 꺼내셨어요?",f:"주말에 추운데 집콕이세요, 나가세요?",src:S.wx},
+   {s:["elev","lunch"],g:"safe",t:"입동 하루 전 기습 한파",d:"오늘 낮 기온이 어제보다 최대 10도 떨어지고 바람이 세요. 내일 입동부터 전국 대부분 아침 영하권, 서울은 -1도(체감 -3도) 예보.",m:"오늘 갑자기 확 추워졌죠? 내일부터 영하래요. 패딩 꺼내셨어요?",f:"주말에 추운데 집콕이세요, 나가세요?",src:S.wx3},
    {s:["elev","lunch","dinner"],g:"safe",t:"한국시리즈 1승 1패, 오늘 3차전",d:"2차전은 삼성이 연장 12회 끝에 3-2 승리. 오늘 대구에서 KT 소형준과 삼성 후라도가 맞붙어요.",m:"어제 연장 12회까지 갔대요. 오늘 3차전 보세요?",f:"응원하는 팀 있으세요?",w:"상대 응원팀부터 확인하고 놀리기",src:S.ks},
    {s:["lunch","dinner"],g:"safe",t:"불금, 퇴근하고 뭐 하세요?",d:"금요일 점심 국룰 질문. 오늘 넷플릭스에 이창동 감독 신작 ‘가능한 사랑’도 올라와요.",m:"오늘 불금인데 퇴근하고 뭐 하세요? 저는 넷플릭스 신작 보려고요.",f:"주말에 영하로 떨어진대요. 집콕 메뉴 정하셨어요?",src:S.nf},
    {s:["elev","lunch"],g:"safe",t:"빼빼로데이 D-5",d:"다음 주 수요일 11월 11일. 편의점 진열대가 벌써 빼빼로 성벽이에요.",m:"다음 주가 빼빼로데이더라고요. 팀에 돌리는 문화 있어요?",f:"초코 오리지널파세요, 아몬드파세요?"},
