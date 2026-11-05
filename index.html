@@ -260,7 +260,7 @@ img{max-width:100%}
   <section>
     <div class="sec-head">
       <h2 id="topicsTitle">오늘의 스몰톡 주제</h2>
-      <span class="note">2026년 11월 4일 기준 실제 이슈예요. 카드마다 출처를 달았어요.</span>
+      <span class="note" id="topicNote">실제 이슈예요. 카드마다 출처를 달았어요.</span>
     </div>
     <div class="grid" id="topics"></div>
   </section>
@@ -341,7 +341,7 @@ img{max-width:100%}
     </section>
   </div>
 
-  <footer>사회생활 하기 · 2026년 11월 4일판. 주제는 뉴스와 밈 사전을 기준으로 골랐고, 영상 카드는 각 플랫폼 검색으로 연결돼요. 질문 리스트와 리액션은 매일 바뀌지 않는 고정 콘텐츠예요.</footer>
+  <footer>사회생활 하기 · <span id="edition"></span>판. 평일 아침마다 새 주제로 바뀌어요. 주제는 뉴스와 밈 사전을 기준으로 골랐고, 영상 카드는 각 플랫폼 검색으로 연결돼요. 질문 리스트와 리액션은 매일 바뀌지 않는 고정 콘텐츠예요.</footer>
 </div>
 <div class="toast" id="toast" role="status"></div>
 <div class="modal" id="modal" hidden>
@@ -352,6 +352,7 @@ img{max-width:100%}
   </div>
 </div>
 
+<script src="today.js?v=20261106"></script>
 <script>
 const SRC={
  wx:["위키트리 11/4","https://www.wikitree.co.kr/articles/1171642"],
@@ -486,6 +487,8 @@ MODES.politics={
  ],
  reactions:[["“아, 그런 시각도 있군요.”","동의도 반대도 아닌 완벽한 중립. 정치편 최강 리액션."],["“제가 그쪽은 잘 몰라서요 ㅎㅎ”","모르는 척은 부끄러운 게 아니라 생존 기술이에요."],["“다들 생각이 다양하네요.”","토론이 과열될 때 한발 물러서며 정리하는 멘트."],["“그나저나…”","화제 전환의 시작을 알리는 마법의 단어. 뒤에 아무 말이나 붙이세요."],["“잠깐 화장실 좀 다녀올게요.”","최후의 수단. 돌아오면 대부분 화제가 바뀌어 있어요."],["“음… (물 마시기)”","말 대신 행동. 물잔이 비면 리필 핑계로 자리 이탈."]]
 };
+if(window.TODAY&&TODAY.modes){for(const k in TODAY.modes){if(MODES[k])Object.assign(MODES[k],TODAY.modes[k])}}
+const EDITION=(window.TODAY&&TODAY.label)||"2026년 11월 4일";
 const GRADE={safe:["g-safe","🟢 안전"],warn:["g-warn","🟡 주의"],ban:["g-ban","🔴 금지"]};
 const localKey=(d=new Date())=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
 const dayKey=localKey();
@@ -800,6 +803,8 @@ function showView(v){
 document.querySelectorAll(".view-btn").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.v)));
 function route(){const h=location.hash.slice(1);if(MODES[h]){mode=h;showView("today")}else if(VIEWS.includes(h)&&h!=="today")showView(h);else showView("today")}
 window.addEventListener("hashchange",()=>{const h=location.hash.slice(1);if((MODES[h]&&(h!==mode||$("view-today").hidden))||(VIEWS.includes(h)&&$("view-"+h).hidden))route()});
+$("topicNote").textContent=`${EDITION} 기준 실제 이슈예요. 카드마다 출처를 달았어요.`;
+$("edition").textContent=EDITION;
 route();
 renderScore();
 </script>

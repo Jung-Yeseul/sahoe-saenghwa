@@ -5,3 +5,6 @@
 Render에서 Static Site로 배포 (Build Command 비움, Publish Directory `.`).
 
 만든 곳: 딴짓연구소 (@ttanjit.lab)
+
+## 매일 갱신
+`today.js`만 바꾸면 "오늘의 주제"와 "바이럴 영상"이 바뀌어요. `index.html`의 `today.js?v=날짜` 값도 같이 바꿔야 브라우저 캐시를 피할 수 있어요.
