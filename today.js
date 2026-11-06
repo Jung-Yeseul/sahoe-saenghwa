@@ -1,5 +1,6 @@
 /* 사회생활 하기 · 오늘의 데이터
    매일 아침 이 파일만 바꾸면 사이트의 "오늘의 주제"와 "바이럴 영상"이 바뀌어요.
+   lunch(선택): {hint:점심 추천 한 줄(날씨 연동), tags:[soup|spicy|noodle|light|hearty|cheap]}
    형식: TODAY.modes.{work|love|family}.topics / videos
    topic: {s:[상황키], g:"safe|warn|ban", t:제목, d:설명, m:꺼낼 멘트, f:이어가기, w?:주의, src?:[출처명, URL]}
    상황키 — work: elev, lunch, dinner / love: blind, some, date / family: holiday, inlaw, chat */
@@ -20,6 +21,7 @@ const S={
 window.TODAY={
  date:"2026-11-06",
  label:"2026년 11월 6일 금요일",
+ lunch:{hint:"입동 하루 전, 기온 뚝. 뜨끈한 국물 어때요?",tags:["soup"]},
  modes:{
  work:{
   topics:[

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="인싸 될래, 아싸 될래? 오늘의 스몰톡 주제, 사회생활 MBTI, 이 말 해도 돼 판정기, 상황 롤플레이">
+<meta name="description" content="인싸 될래, 아싸 될래? 오늘의 스몰톡 주제, 점심 메뉴 룰렛, 사회생활 MBTI, 이 말 해도 돼 판정기, 상황 롤플레이">
 <meta property="og:title" content="사회생활 하기">
 <meta property="og:description" content="버텨야지, 먹고살려면. 나의 사회생활 유형은? 1분 테스트">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💬</text></svg>">
@@ -113,6 +113,7 @@ section{display:flex;flex-direction:column;gap:16px}
 .view-btn{border:0;background:none;padding:10px 14px;font-weight:700;font-size:15px;color:var(--muted);border-bottom:3px solid transparent;white-space:nowrap;margin-bottom:-1px}
 .view-btn[aria-current="page"]{color:var(--ink);border-bottom-color:var(--accent)}
 .view{display:flex;flex-direction:column;gap:36px}
+[hidden]{display:none!important}
 .badge-row,.badge-foot{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .badge-foot{margin-top:8px;font-size:12px;color:var(--muted)}
 .streak{font-size:12px;font-weight:700}
@@ -168,6 +169,32 @@ textarea:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 .modal-box{background:var(--paper);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px;max-width:420px;width:100%;max-height:100%;overflow:auto}
 .modal-box img{width:100%;border-radius:8px;border:1px solid var(--line)}
 a.btn{text-decoration:none;display:inline-block}
+/* 점심 */
+.field{display:flex;flex-direction:column;gap:6px}
+input[type=text]{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 14px;width:100%}
+input[type=text]:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.row{display:flex;gap:8px}
+.row input{flex:1;min-width:0}
+.chk{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--muted)}
+.chk input{accent-color:var(--accent);width:16px;height:16px}
+.slot{display:flex;align-items:center;gap:16px;background:var(--bg);border-radius:12px;padding:18px 20px;min-height:96px}
+.slot-e{font-size:48px;line-height:1}
+.slot-n{font-family:var(--display);font-size:clamp(28px,6vw,44px);line-height:1.1;min-width:0}
+.slot.spinning .slot-n{color:var(--muted)}
+.lunch-hint{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;background:var(--paper);border:1px solid var(--accent);border-radius:10px;padding:12px 16px;font-size:15px}
+.pick{display:flex;flex-direction:column;gap:10px}
+.pick-tags{display:flex;gap:6px;flex-wrap:wrap}
+.pick-tags span{font-size:12px;color:var(--muted);background:var(--bg);border-radius:999px;padding:2px 10px}
+.rlist{display:flex;flex-wrap:wrap;gap:8px}
+.rlist .empty{font-size:14px;color:var(--muted);margin:0}
+.rchip{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:6px 6px 6px 14px;font-size:14px;max-width:100%}
+.rchip span{overflow-wrap:anywhere}
+.rchip button{border:0;background:none;color:var(--muted);font-size:16px;line-height:1;padding:2px 6px;border-radius:999px}
+.rchip.hit{background:var(--hl);color:var(--hl-ink);border-color:var(--hl)}
+.tips{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.tip{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;font-size:14px;min-width:0}
+.tip .no{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--ban)}
+.tip .yes{font-weight:500}
 .hook{font-family:var(--display);font-size:clamp(18px,3vw,22px);color:var(--accent);margin:4px 0 6px}
 
 /* 질문 리스트 */
@@ -218,7 +245,6 @@ footer{font-size:12px;color:var(--muted);border-top:1px solid var(--line);paddin
 
 :root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 body{margin:0}
-[hidden]{display:none!important}
 img{max-width:100%}
 </style>
 </head>
@@ -242,6 +268,7 @@ img{max-width:100%}
 
   <nav class="views" aria-label="메뉴">
     <button class="view-btn" data-v="today">오늘의 주제</button>
+    <button class="view-btn" data-v="lunch">점심 뭐 먹지?</button>
     <button class="view-btn" data-v="test">사회생활 MBTI</button>
     <button class="view-btn" data-v="check">이 말 해도 돼?</button>
     <button class="view-btn" data-v="play">상황 롤플레이</button>
@@ -308,6 +335,48 @@ img{max-width:100%}
 
   </div>
 
+  <div class="view" id="view-lunch" hidden>
+    <section>
+      <div class="sec-head"><h2>점심 뭐 먹지?</h2><span class="note">메뉴 결정도 사회생활이에요. 결정은 룰렛이, 책임도 룰렛이.</span></div>
+      <div class="lunch-hint" id="lunchHint" hidden></div>
+      <div class="panel">
+        <div class="field"><label class="label" for="area">회사 근처 역이나 동네</label><input id="area" type="text" placeholder="예: 신논현역, 판교역, 을지로" autocomplete="off"></div>
+        <div class="label">오늘 기분 (여러 개 고를 수 있어요)</div>
+        <div class="tabs" id="moods">
+          <button class="tab" data-k="soup" aria-pressed="false">🍲 국물</button>
+          <button class="tab" data-k="spicy" aria-pressed="false">🌶️ 매운 거</button>
+          <button class="tab" data-k="noodle" aria-pressed="false">🍜 면</button>
+          <button class="tab" data-k="light" aria-pressed="false">🥗 가볍게</button>
+          <button class="tab" data-k="hearty" aria-pressed="false">🍖 든든하게</button>
+          <button class="tab" data-k="cheap" aria-pressed="false">💸 가성비</button>
+        </div>
+        <div class="label">몇 명이서?</div>
+        <div class="tabs" id="party">
+          <button class="tab" data-p="solo" aria-pressed="false">🎧 혼밥</button>
+          <button class="tab" data-p="few" aria-pressed="true">👥 2~3명</button>
+          <button class="tab" data-p="team" aria-pressed="false">👨‍👩‍👧‍👦 팀 (4명 이상)</button>
+        </div>
+        <label class="chk"><input type="checkbox" id="noRepeat" checked> 최근에 먹은 메뉴는 빼기</label>
+        <div class="slot" id="slot" aria-live="polite"><span class="slot-e" id="slotE">🍽️</span><span class="slot-n" id="slotN">뭐 먹지?</span></div>
+        <div class="q-btns"><button class="btn" id="spin">메뉴 뽑기</button></div>
+        <div id="menuResult"></div>
+      </div>
+    </section>
+    <section>
+      <div class="sec-head"><h2>식당 룰렛</h2><span class="note">팀원들이 말한 후보를 넣고 돌리세요. 목록은 이 브라우저에 저장돼요.</span></div>
+      <div class="panel">
+        <div class="row"><input id="rName" type="text" placeholder="식당 이름을 넣고 Enter" autocomplete="off"><button class="btn" id="rAdd">추가</button></div>
+        <div class="rlist" id="rList"></div>
+        <div class="q-btns"><button class="btn" id="rSpin">식당 뽑기</button><button class="btn ghost" id="rClear">목록 비우기</button></div>
+        <div id="rResult" aria-live="polite"></div>
+      </div>
+    </section>
+    <section>
+      <div class="sec-head"><h2>메뉴 정할 때 생존 멘트</h2><span class="note">“아무거나요”는 사회생활 최대의 함정이에요.</span></div>
+      <div class="tips" id="lunchTips"></div>
+    </section>
+  </div>
+
   <div class="view" id="view-test" hidden>
     <section>
       <div class="sec-head"><h2>사회생활 MBTI</h2><span class="note">10문항, 1분이면 끝나요. 결과는 카드로 만들어 공유할 수 있어요.</span></div>
@@ -352,7 +421,7 @@ img{max-width:100%}
   </div>
 </div>
 
-<script src="today.js?v=20261106"></script>
+<script src="today.js?v=2026110602"></script>
 <script>
 const SRC={
  wx:["위키트리 11/4","https://www.wikitree.co.kr/articles/1171642"],
@@ -788,13 +857,139 @@ $("play").addEventListener("click",e=>{
   if(id==="pCard"){const R=$("play")._res;openCard({eyebrow:`상황 롤플레이 · ${R.K.n}`,emoji:R.K.e,title:`생존률 ${R.pct}%`,body:R.msg,sub:"너도 버틸 수 있을까? 사회생활 하기에서 도전",accent:"#2f5bd3"})}
 });
 
+/* ===== 점심 뭐 먹지? ===== */
+const MENUS=[
+ ["김치찌개","🍲","soup spicy cheap","sg","“올해 김장 하세요?”로 자연스럽게 연결"],
+ ["된장찌개","🥘","soup cheap","sg","“집밥 생각나네요” 한 마디면 고향 토크 시작"],
+ ["순두부찌개","🌶️","soup spicy","sg","“맵기 몇 단계로 하세요?”"],
+ ["부대찌개","🍲","soup spicy hearty","g","“라면사리 몇 개 넣을까요?”는 만국 공통 질문"],
+ ["국밥","🥣","soup hearty cheap","sg","“국밥은 진리죠”에 반박하는 사람은 없어요"],
+ ["순대국","🥣","soup hearty cheap","sg","“다대기 넣으세요, 안 넣으세요?”"],
+ ["설렁탕","🍚","soup hearty","sg","“깍두기 국물 넣는 파세요?”"],
+ ["갈비탕","🍖","soup hearty","sg","“오늘은 좀 든든하게 가시죠”"],
+ ["뼈해장국","🦴","soup spicy hearty","sg","“해장하러 오신 거 아니죠? ㅋㅋ” (친한 사이만)"],
+ ["감자탕","🥘","soup spicy hearty","g","“볶음밥은 무조건이죠?”"],
+ ["칼국수","🍜","soup noodle cheap","sg","“칼국수집은 김치 맛집이 진짜 맛집이에요”"],
+ ["짬뽕","🌶️","soup spicy noodle","sg","“짬뽕 vs 짜장, 평생 하나만 먹는다면?”"],
+ ["짜장면","🍜","noodle cheap hearty","sg","“탕수육 부먹이세요, 찍먹이세요?” (🟡 논쟁 주의)"],
+ ["마라탕","🔥","soup spicy noodle","s","“꿔바로우까지 시키는 파세요?”"],
+ ["라멘","🍜","soup noodle hearty","s","“돈코츠파세요, 쇼유파세요?”"],
+ ["쌀국수","🍜","soup noodle light","sg","“고수 드세요?” 취향 확인 질문의 정석"],
+ ["우동","🍥","soup noodle light cheap","s","“추운 날엔 역시 우동이죠”"],
+ ["냉면","🥶","noodle light","sg","“이 날씨에 냉면? 진정한 냉면러시네요”"],
+ ["비빔밥","🥗","light cheap","sg","“고추장 많이 넣는 파세요?”"],
+ ["제육볶음","🐷","spicy hearty cheap","sg","“직장인 국민 메뉴 1위답네요”"],
+ ["백반·한식뷔페","🍱","cheap hearty","g","“오늘 반찬 뭐 나왔대요?”"],
+ ["쌈밥","🥬","light","g","“쌈 싸 먹으면 건강해지는 기분이에요”"],
+ ["생선구이","🐟","light","sg","“생선 가시 잘 바르세요?”"],
+ ["닭갈비","🍗","spicy hearty","g","“치즈 추가할까요?”"],
+ ["돈까스","🍛","hearty","sg","“등심파세요, 안심파세요?”"],
+ ["카레","🍛","cheap hearty","s","“카레엔 돈까스 토핑 국룰이죠”"],
+ ["규동","🍚","cheap hearty","s","“빨리 먹고 산책 가실래요?”"],
+ ["텐동","🍤","hearty","s","“튀김부터 먹어요, 밥부터 먹어요?”"],
+ ["분식 (김밥·떡볶이)","🍢","spicy cheap","sg","“떡볶이는 밀떡파세요, 쌀떡파세요?”"],
+ ["초밥","🍣","light","sg","“제일 좋아하는 초밥 하나만 꼽는다면?”"],
+ ["포케·연어덮밥","🥗","light","s","“요즘 건강 챙기세요?” (다이어트 얘기로 번지면 🟡)"],
+ ["샐러드","🥗","light","s","“드레싱 따로 주세요 파세요?”"],
+ ["샌드위치","🥪","light cheap","s","“사서 산책하면서 먹을까요?”"],
+ ["버거","🍔","hearty","sg","“감자튀김 케첩 찍먹파세요?”"],
+ ["파스타","🍝","noodle","g","“크림파세요, 토마토파세요?”"],
+ ["피자","🍕","hearty","g","“피자 끝 빵 드세요?”"],
+ ["편의점 + 자리 컵라면","🏪","cheap noodle","s","아싸 모드 ON. 오늘은 충전의 날이에요"]
+].map(([n,e,t,p,talk])=>({n,e,t:t.split(" "),p,talk}));
+const TAGNAME={soup:"국물",spicy:"매운 거",noodle:"면",light:"가볍게",hearty:"든든하게",cheap:"가성비"};
+const LUNCH_TIPS=[
+ ["“아무거나요”","“국물이랑 면 중엔 국물이 당겨요!”","선택지 두 개를 던져주면 결정 피로를 덜어줘서 감사받아요."],
+ ["“또 거기요?”","“거기 괜찮죠! 오늘은 옆에 새로 생긴 데 가볼까요?”","남이 고른 곳을 깎아내리지 않고 대안만 얹기."],
+ ["메뉴 정한 뒤 “근데 저 그거 별로…”","처음부터 “저 회만 아니면 다 좋아요”","못 먹는 건 맨 처음에 한 번만 말하기."],
+ ["“저 다이어트 중이라…”","“저는 가볍게 먹을게요, 샐러드 되는 데면 좋아요”","남의 메뉴까지 바꾸게 하지 않는 게 포인트."],
+ ["말없이 따라가기","“오늘 추운데 국물 어때요?”","날씨에 메뉴를 엮으면 제안해도 부담이 없어요."],
+ ["“제가 쏠게요!” (매일)","“다음엔 커피는 제가 살게요”","작게, 가끔. 매일 쏘면 서로 부담이에요."]
+];
+let moods=new Set(),party="few",lastPick=null,lunchInit=false,rList=store.get("sgs-rest",[]);
+const mapLinks=q=>({naver:"https://map.naver.com/p/search/"+encodeURIComponent(q),kakao:"https://map.kakao.com/?q="+encodeURIComponent(q)});
+const areaQ=n=>{const a=$("area").value.trim();return a?a+" "+n:n};
+function menuPool(){
+  const recent=store.get("sgs-ate",[]);
+  let base=MENUS.filter(m=>party==="solo"?m.p.includes("s"):party==="team"?m.p.includes("g"):true);
+  if($("noRepeat").checked){const f=base.filter(m=>!recent.includes(m.n));if(f.length)base=f}
+  const sel=[...moods];if(!sel.length)return{list:base,relaxed:false};
+  let L=base.filter(m=>sel.every(t=>m.t.includes(t)));if(L.length)return{list:L,relaxed:false};
+  L=base.filter(m=>sel.some(t=>m.t.includes(t)));return{list:L.length?L:base,relaxed:true};
+}
+function showPick(m,relaxed){
+  lastPick=m;$("slotE").textContent=m.e;$("slotN").textContent=m.n;
+  const q=areaQ(m.n),L=mapLinks(q);
+  $("menuResult").innerHTML=`<div class="pick">
+   ${relaxed?`<p class="note" style="margin:0">고른 조건을 모두 만족하는 메뉴가 없어서 조건을 조금 풀었어요.</p>`:""}
+   <div class="pick-tags">${m.t.map(t=>`<span>${TAGNAME[t]}</span>`).join("")}<span>${m.p==="s"?"혼밥 추천":m.p==="g"?"여럿이 추천":"혼밥·여럿 모두"}</span></div>
+   <div class="script"><span class="label">같이 꺼낼 멘트</span>${m.talk}</div>
+   <div class="q-btns"><a class="btn" href="${L.naver}" target="_blank" rel="noopener">네이버 지도에서 “${q.replace(/</g,"&lt;")}” 찾기</a><a class="btn ghost" href="${L.kakao}" target="_blank" rel="noopener">카카오맵</a></div>
+   <div class="q-btns"><button class="btn ghost" id="mDecide">이걸로 결정!</button><button class="btn ghost" id="mCopy">팀에 보낼 문구 복사</button><button class="btn ghost" id="mCard">카드로 만들기</button></div></div>`;
+}
+function spinMenu(){
+  const {list,relaxed}=menuPool();const pick=list[Math.floor(Math.random()*list.length)];
+  const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(reduce)return showPick(pick,relaxed);
+  const sl=$("slot");sl.classList.add("spinning");$("spin").disabled=true;let n=0;
+  const tick=()=>{const r=MENUS[Math.floor(Math.random()*MENUS.length)];$("slotE").textContent=r.e;$("slotN").textContent=r.n;
+    if(++n<14)setTimeout(tick,50+n*12);else{sl.classList.remove("spinning");$("spin").disabled=false;showPick(pick,relaxed)}};
+  tick();
+}
+function renderRest(hit){
+  $("rList").innerHTML=rList.length?rList.map((r,i)=>`<span class="rchip${hit===i?" hit":""}"><span>${r.replace(/</g,"&lt;")}</span><button data-del="${i}" aria-label="${r.replace(/"/g,"&quot;")} 빼기">×</button></span>`).join("")
+   :`<p class="empty">아직 후보가 없어요. “여기 어때요?” 하고 나온 식당 이름을 2개 이상 넣어 보세요.</p>`;
+}
+function addRest(){const v=$("rName").value.trim();if(!v)return;
+  if(rList.includes(v)){toast("이미 있는 후보예요");return}if(rList.length>=12){toast("후보는 12개까지 넣을 수 있어요");return}
+  rList.push(v);store.set("sgs-rest",rList);$("rName").value="";renderRest()}
+function spinRest(){
+  if(rList.length<2){$("rResult").innerHTML=`<p class="note" style="margin:0">후보를 2개 이상 넣어야 돌릴 수 있어요.</p>`;return}
+  const pick=Math.floor(Math.random()*rList.length);const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const done=()=>{renderRest(pick);const name=rList[pick],L=mapLinks(areaQ(name));
+    $("rResult").innerHTML=`<div class="pick"><div class="slot"><span class="slot-e">🎯</span><span class="slot-n">${name.replace(/</g,"&lt;")}</span></div>
+     <div class="script"><span class="label">도착해서 꺼낼 멘트</span>“여기 처음 와보는데, 추천 메뉴 있어요?”</div>
+     <div class="q-btns"><a class="btn" href="${L.naver}" target="_blank" rel="noopener">네이버 지도</a><a class="btn ghost" href="${L.kakao}" target="_blank" rel="noopener">카카오맵</a></div></div>`};
+  if(reduce)return done();
+  let n=0;const tick=()=>{renderRest(n%rList.length);if(++n<rList.length*3+pick+1)setTimeout(tick,60+n*6);else done()};tick();
+}
+function initLunch(){
+  if(lunchInit)return;lunchInit=true;
+  $("area").value=store.get("sgs-area","");
+  $("area").addEventListener("change",()=>{store.set("sgs-area",$("area").value.trim());if(lastPick)showPick(lastPick,false)});
+  $("lunchTips").innerHTML=LUNCH_TIPS.map(([no,yes,why])=>`<div class="tip"><span class="grade g-ban" style="align-self:flex-start">🔴 이렇게 말고</span><span class="no">${no}</span><span class="grade g-safe" style="align-self:flex-start">🟢 이렇게</span><span class="yes">${yes}</span><span class="note">${why}</span></div>`).join("");
+  const H=window.TODAY&&TODAY.lunch;
+  if(H&&H.hint){$("lunchHint").hidden=false;$("lunchHint").innerHTML=`<span>☀️ 오늘의 추천: ${H.hint}</span>${H.tags&&H.tags.length?`<button class="btn ghost" id="hintGo">이 조건으로 뽑기</button>`:""}`;
+    (H.tags||[]).forEach(t=>moods.add(t));syncMoods()}
+  renderRest();
+  const {list}=menuPool();showPick(list[Math.floor(Math.random()*list.length)],false);
+}
+function syncMoods(){document.querySelectorAll("#moods .tab").forEach(b=>b.setAttribute("aria-pressed",moods.has(b.dataset.k)))}
+$("moods").addEventListener("click",e=>{const b=e.target.closest(".tab");if(!b)return;const k=b.dataset.k;moods.has(k)?moods.delete(k):moods.add(k);syncMoods()});
+$("party").addEventListener("click",e=>{const b=e.target.closest(".tab");if(!b)return;party=b.dataset.p;document.querySelectorAll("#party .tab").forEach(x=>x.setAttribute("aria-pressed",x===b))});
+$("spin").addEventListener("click",spinMenu);
+$("lunchHint").addEventListener("click",e=>{if(e.target.id==="hintGo"){moods=new Set(TODAY.lunch.tags);syncMoods();spinMenu()}});
+$("menuResult").addEventListener("click",e=>{
+  if(!lastPick)return;const id=e.target.id;
+  if(id==="mDecide"){const ate=store.get("sgs-ate",[]).filter(x=>x!==lastPick.n);ate.unshift(lastPick.n);store.set("sgs-ate",ate.slice(0,5));
+    if(store.get("sgs-lunch-day","")!==dayKey){store.set("sgs-lunch-day",dayKey);addXP(2);toast(`오늘 점심은 ${lastPick.n}! 경험치 +2`)}else toast(`오늘 점심은 ${lastPick.n}!`)}
+  if(id==="mCopy"){const a=$("area").value.trim();copy(`오늘 점심 ${lastPick.n} 어때요? ${lastPick.e}${a?` (${a} 근처)`:""}`)}
+  if(id==="mCard")openCard({eyebrow:`오늘의 점심${$("area").value.trim()?" · "+$("area").value.trim():""}`,emoji:lastPick.e,title:lastPick.n,body:lastPick.talk,sub:"결정은 룰렛이, 책임도 룰렛이. 사회생활 하기 점심 룰렛",accent:"#2f5bd3"});
+});
+$("rAdd").addEventListener("click",addRest);
+$("rName").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.isComposing){e.preventDefault();addRest()}});
+$("rList").addEventListener("click",e=>{const b=e.target.closest("[data-del]");if(!b)return;rList.splice(+b.dataset.del,1);store.set("sgs-rest",rList);renderRest()});
+$("rSpin").addEventListener("click",spinRest);
+$("rClear").addEventListener("click",()=>{rList=[];store.set("sgs-rest",rList);renderRest();$("rResult").innerHTML=""});
+
 /* ===== 화면 전환 ===== */
-const VIEWS=["today","test","check","play"];
+const VIEWS=["today","lunch","test","check","play"];
 function showView(v){
   VIEWS.forEach(n=>$("view-"+n).hidden=n!==v);
   document.querySelectorAll(".view-btn").forEach(b=>b.dataset.v===v?b.setAttribute("aria-current","page"):b.removeAttribute("aria-current"));
   if(v==="today"){setMode(mode);return}
   document.body.dataset.mode="work";$("modeTag").hidden=true;$("slogan").innerHTML="<b>버텨야지, 먹고살려면.</b> 아싸를 위한 사회생활 생존 키트";
+  if(v==="lunch")initLunch();
   if(v==="test"&&!$("quiz").innerHTML)renderQuiz();
   if(v==="check"&&!$("say").value)loadSample();
   if(v==="play")renderPlay();
